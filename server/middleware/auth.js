@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/UserModel");
 
-const verifyToken = async(req, res, next) => {
+const verifyToken = async (req, res, next) => {
   const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
 
@@ -12,11 +12,15 @@ const verifyToken = async(req, res, next) => {
   }
   try {
     const { user_id, exp } = await jwt.verify(token, "TodoToken123");
+
+    // For one private user
+    req.user = await User.findById(user_id);
+
     // Check if token has expired
     if (exp < Date.now().valueOf() / 1000) {
-     return res.status(401).json({
-      error: "JWT token has expired, please login to obtain a new one"
-     });
+      return res.status(401).json({
+        error: "JWT token has expired, please login to obtain a new one",
+      });
     }
     res.locals.loggedInUser = await User.findById(user_id);
   } catch (err) {
