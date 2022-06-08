@@ -52,3 +52,53 @@ exports.getAllNotes = async (req, res) => {
     });
   }
 };
+
+exports.deleteNote = async (req, res) => {
+  try {
+    const deletedNote = await notes.findByIdAndDelete(req.params.id);
+    return res.status(204).json({
+      code: 2001,
+      message: "Note deleted successfully",
+      data: deletedNote,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      code: 2010,
+      message: "Something went wrong",
+    });
+  }
+};
+
+exports.updateNote = async (req, res) => {
+  const { title, content, category } = req.body;
+  const body = {
+    title,
+    content,
+    category,
+  };
+  try {
+    const updatedNote = await notes.findByIdAndUpdate(req.params.id, body, {
+      new: true,
+    });
+    if (updatedNote && updatedNote.length === 0) {
+      return res.status(200).json({
+        code: 2000,
+        message: "No Data Found",
+        data: updatedNote,
+      });
+    } else {
+      return res.status(200).json({
+        code: 2001,
+        message: "Note updated successfully",
+        data: updatedNote,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      code: 2010,
+      message: "Something went wrong",
+    });
+  }
+};

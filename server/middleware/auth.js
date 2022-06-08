@@ -22,7 +22,6 @@ const verifyToken = async (req, res, next) => {
         error: "JWT token has expired, please login to obtain a new one",
       });
     }
-    res.locals.loggedInUser = await User.findById(user_id);
   } catch (err) {
     return res.status(401).send({ message: "Invalid Token" });
   }
