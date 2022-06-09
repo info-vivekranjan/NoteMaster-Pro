@@ -1,9 +1,9 @@
-.loginCont {
+.registerCont {
   position: relative;
   background-color: #fcd450;
   height: 100vh;
 }
-.loginSubCont {
+.registerSubCont {
   width: 37%;
   text-align: center;
   position: absolute;

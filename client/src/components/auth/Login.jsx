@@ -1,15 +1,45 @@
-import { Box, Button, Typography } from "@mui/material";
-import React from "react";
+import {
+  Box,
+  Button,
+  Typography,
+  TextField,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authLogin } from "../../redux/auth/authAction";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Visibility from "@mui/icons-material/Visibility";
+import styles from "./Login.module.css";
 
 const Login = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-  const handelLogin = () => {
-    dispatch(authLogin({ email: "vivek0003@hotmail.com", password: "1234" }));
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
   };
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+  const handelLogin = () => {
+    dispatch(authLogin({ email, password }));
+  };
+
   let theme = createTheme({
     palette: {
       primary: {
@@ -22,11 +52,56 @@ const Login = () => {
   });
   console.log(auth);
   return (
-    <Box>
+    <Box className={styles.loginCont}>
       <ThemeProvider theme={theme}>
-        <Box>
-          <Typography variant="h2">Login</Typography>
-          <Button variant="contained" onClick={handelLogin}>
+        <Box className={styles.loginSubCont}>
+          <Typography variant="h3">Login</Typography>
+          <br />
+          <br />
+          <br />
+          <TextField
+            id="email-basic"
+            label="Email"
+            variant="outlined"
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChangeEmail}
+            style={{ width: "60%" }}
+          />
+          <br />
+          <br />
+          <FormControl variant="outlined" style={{ width: "60%" }}>
+            <InputLabel htmlFor="outlined-adornment-password">
+              Password
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={handleChangePassword}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+            />
+          </FormControl>
+          <br />
+          <br />
+          <Button
+            variant="contained"
+            onClick={handelLogin}
+            style={{ width: "60%" }}
+          >
             <b>Login</b>
           </Button>
         </Box>
