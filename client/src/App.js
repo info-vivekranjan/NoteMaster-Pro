@@ -1,13 +1,10 @@
 import React from "react";
-import Login from "./components/auth/Login";
-import Register from "./components/register/Register";
+import Router from "./routes/Router";
 
 function App() {
   return (
     <div className="App">
-      <h1>Take-a-note</h1>
-      {/* <Login /> */}
-      <Register />
+      <Router />
     </div>
   );
 }
