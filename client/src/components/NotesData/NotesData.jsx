@@ -9,7 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllNotes } from "../../redux/notes/notesAction";
+import { getAllNotes, deleteNote } from "../../redux/notes/notesAction";
 import Navbar from "../Navbar/Navbar";
 
 const NotesData = () => {
@@ -29,6 +29,11 @@ const NotesData = () => {
   useEffect(() => {
     dispatch(getAllNotes());
   }, []);
+
+  const handleDeleteNote = (id) => {
+    dispatch(deleteNote(id));
+    dispatch(getAllNotes());
+  };
 
   console.log(notesData);
   return (
@@ -80,7 +85,7 @@ const NotesData = () => {
                         <Typography>{item.content}</Typography>
                       </AccordionDetails>
                       <Divider />
-                      <Box sx={{ ml: "15px", pt: '10px' }}>
+                      <Box sx={{ ml: "15px", pt: "10px" }}>
                         <Button
                           variant="contained"
                           size="small"
@@ -93,6 +98,7 @@ const NotesData = () => {
                           variant="contained"
                           size="small"
                           endIcon={<DeleteIcon />}
+                          onClick={() => handleDeleteNote(item?._id)}
                         >
                           Delete
                         </Button>

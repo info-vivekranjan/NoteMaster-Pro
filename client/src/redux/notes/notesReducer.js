@@ -2,6 +2,7 @@ import {
   GET_NOTES_REQUEST,
   GET_NOTES_SUCCESS,
   GET_NOTES_FAILURE,
+  DELETE_NOTES_SUCCESS,
 } from "./notesActionTypes";
 
 let initialState = {
@@ -9,6 +10,7 @@ let initialState = {
   allNotesSuccess: false,
   allNotesFailure: false,
   notesData: [],
+  deletedNote: [],
   failureData: "",
 };
 
@@ -32,6 +34,11 @@ export const notesReducer = (state = initialState, { type, payload }) => {
         allNotesRequest: false,
         allNotesFailure: true,
         failureData: payload,
+      };
+    case DELETE_NOTES_SUCCESS:
+      return {
+        ...state,
+        deletedNote: payload,
       };
     default:
       return state;
