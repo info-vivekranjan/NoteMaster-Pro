@@ -9,15 +9,18 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authLogin } from "../../redux/auth/authAction";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import styles from "./Login.module.css";
+import { getLocalData } from "../../utils/localStorage";
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
@@ -50,7 +53,13 @@ const Login = () => {
       },
     },
   });
-  console.log(auth);
+
+  useEffect(() => {
+    if (getLocalData("userInfo")?.token?.length > 0) {
+      navigate("/notes");
+    }
+  }, [getLocalData("userInfo")?.token]);
+
   return (
     <Box className={styles.loginCont}>
       <ThemeProvider theme={theme}>
