@@ -53,6 +53,34 @@ exports.getAllNotes = async (req, res) => {
   }
 };
 
+exports.getSingleNote = async (req, res) => {
+
+  try {
+    let noteData = await notes
+      .findById(req.params.id)
+    if (noteData && noteData.length === 0) {
+      return res.status(200).json({
+        code: 2000,
+        message: "No data available",
+        data: noteData,
+      });
+    } else {
+      return res.status(200).json({
+        code: 2001,
+        message: "Note fetched successfully",
+        data: noteData,
+        count: noteData.length,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      code: 2010,
+      message: "something went wrong",
+    });
+  }
+};
+
 exports.deleteNote = async (req, res) => {
   try {
     const deletedNote = await notes.findByIdAndDelete(req.params.id);
