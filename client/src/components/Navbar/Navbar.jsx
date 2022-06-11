@@ -7,16 +7,24 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import Logout from "@mui/icons-material/Logout";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllNotes } from "../../redux/notes/notesAction";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -52,105 +60,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
   },
 }));
 
 export default function PrimarySearchAppBar() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const notesData = useSelector((state) => state.notesData);
 
+  const [openDialog, setOpenDialog] = React.useState(false);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
+  const openProfileMenu = Boolean(anchorEl);
+  const handleProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
+  const handleClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
   };
 
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      sx={{ mt: "55px" }}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      sx={{ mt: "55px" }}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge
-            badgeContent={notesData && notesData?.notesData?.data?.count}
-            color="error"
-          >
-            <NoteAltIcon />
-          </Badge>
-        </IconButton>
-        <p>Notes</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
   let theme = createTheme({
     palette: {
@@ -160,33 +95,26 @@ export default function PrimarySearchAppBar() {
       secondary: {
         main: "#edf2ff",
       },
+      black: {
+        main: "#000000",
+      },
     },
   });
+  const LogoutUser = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
 
   useEffect(() => {
     dispatch(getAllNotes());
   }, []);
 
   return (
-    <Box sx={{ flexGrow: 1, position: "fixed", width: "100%", zIndex: 10000 }}>
+    <Box sx={{ position: "fixed", width: "100%", zIndex: 10000 }}>
       <ThemeProvider theme={theme}>
         <AppBar position="static">
           <Toolbar>
-            {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton> */}
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { xs: "none", sm: "block" } }}
-            >
+            <Typography variant="h6" noWrap component="div">
               T-A-N
             </Typography>
             <Search>
@@ -199,47 +127,101 @@ export default function PrimarySearchAppBar() {
               />
             </Search>
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-              >
-                <Badge
-                  badgeContent={notesData && notesData?.notesData?.data?.count}
-                  color="error"
-                >
-                  <NoteAltIcon />
-                </Badge>
-              </IconButton>
+            <Box>
+              <Link to="/notes" style={{ textDecoration: "none" }}>
+                <IconButton size="large" color="black">
+                  <Badge
+                    badgeContent={
+                      notesData && notesData?.notesData?.data?.count
+                    }
+                    color="error"
+                  >
+                    <NoteAltIcon />
+                  </Badge>
+                </IconButton>
+              </Link>
               <IconButton
                 size="large"
                 edge="end"
                 aria-label="account of current user"
-                aria-controls={menuId}
                 aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
+                aria-controls={openProfileMenu ? "account-menu" : undefined}
+                aria-expanded={openProfileMenu ? "true" : undefined}
+                color="black"
+                onClick={handleProfileClick}
               >
                 <AccountCircle />
               </IconButton>
             </Box>
-            <Box sx={{ display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
-                color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
-            </Box>
           </Toolbar>
+          <Menu
+            anchorEl={anchorEl}
+            id="account-menu"
+            open={openProfileMenu}
+            onClose={handleClose}
+            onClick={handleClose}
+            PaperProps={{
+              elevation: 0,
+              sx: {
+                overflow: "visible",
+                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                mt: 1.8,
+                "& .MuiAvatar-root": {
+                  width: 32,
+                  height: 32,
+                  ml: -0.5,
+                  mr: 1,
+                },
+                "&:before": {
+                  content: '""',
+                  display: "block",
+                  position: "absolute",
+                  top: 0,
+                  right: 14,
+                  width: 10,
+                  height: 10,
+                  bgcolor: "background.paper",
+                  transform: "translateY(-50%) rotate(45deg)",
+                  zIndex: 0,
+                },
+              },
+            }}
+            transformOrigin={{ horizontal: "right", vertical: "top" }}
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          >
+            <MenuItem>
+              <ListItemIcon>
+                <PersonAdd fontSize="small" />
+              </ListItemIcon>
+              Profile
+            </MenuItem>
+            <MenuItem onClick={handleClickOpenDialog}>
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
+          <Dialog
+            open={openDialog}
+            onClose={handleCloseDialog}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{"Logout"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Are you sure of logout?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog}>Disagree</Button>
+              <Button onClick={LogoutUser} autoFocus>
+                Agree
+              </Button>
+            </DialogActions>
+          </Dialog>
         </AppBar>
-        {renderMobileMenu}
-        {renderMenu}
       </ThemeProvider>
     </Box>
   );

@@ -5,6 +5,9 @@ import {
   GET_NOTES_SUCCESS,
   GET_NOTES_FAILURE,
   DELETE_NOTES_SUCCESS,
+  CREATE_NOTES_REQUEST,
+  CREATE_NOTES_SUCCESS,
+  CREATE_NOTES_FAILURE,
 } from "./notesActionTypes";
 
 export const getNotesRequest = () => ({
@@ -23,6 +26,20 @@ export const getNotesFailure = (payload) => ({
 
 export const deleteNotesSuccess = (payload) => ({
   type: DELETE_NOTES_SUCCESS,
+  payload,
+});
+
+export const createNotesRequest = () => ({
+  type: CREATE_NOTES_REQUEST,
+});
+
+export const createNotesSuccess = (payload) => ({
+  type: CREATE_NOTES_SUCCESS,
+  payload,
+});
+
+export const createNotesFailure = (payload) => ({
+  type: CREATE_NOTES_FAILURE,
   payload,
 });
 
@@ -58,5 +75,25 @@ export const deleteNote = (id) => (dispatch) => {
     .delete(`http://localhost:6800/note/deleteNote/${id}`, config)
     .then((response) => {
       dispatch(deleteNotesSuccess(response));
+    });
+};
+
+export const createNote = (payload) => (dispatch) => {
+  dispatch(createNotesRequest());
+
+  const config = {
+    headers: {
+      "Content-type": "application/json",
+      "x-access-token": getLocalData("userInfo")?.token,
+    },
+  };
+
+  return axios
+    .post("http://localhost:6800/note/createNote", payload, config)
+    .then((response) => {
+      dispatch(createNotesSuccess(response));
+    })
+    .catch((err) => {
+      dispatch(createNotesFailure(err));
     });
 };

@@ -11,10 +11,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllNotes, deleteNote } from "../../redux/notes/notesAction";
 import Navbar from "../Navbar/Navbar";
+import { Link, useNavigate } from "react-router-dom";
 
 const NotesData = () => {
   const dispatch = useDispatch();
   const notesData = useSelector((state) => state.notesData);
+  const navigate = useNavigate();
 
   let theme = createTheme({
     palette: {
@@ -26,16 +28,21 @@ const NotesData = () => {
       },
     },
   });
-  useEffect(() => {
-    dispatch(getAllNotes());
-  }, []);
 
   const handleDeleteNote = (id) => {
     dispatch(deleteNote(id));
-    dispatch(getAllNotes());
+    window.location.reload();
   };
 
-  console.log(notesData);
+  useEffect(() => {
+    dispatch(getAllNotes());
+  }, [dispatch]);
+
+  // if (notesData?.failureData?.response?.data.message === "Invalid Token") {
+  //   localStorage.clear();
+  //   navigate("/login");
+  // }
+  console.log(notesData?.failureData?.response?.data.message);
   return (
     <React.Fragment>
       <Navbar />
@@ -46,7 +53,9 @@ const NotesData = () => {
               <Typography variant="h4"> Notes</Typography>
             </Box>
             <Box sx={{ mb: "50px" }}>
-              <Button variant="contained">Create Note</Button>
+              <Link to="/create-note" style={{ textDecoration: "none" }}>
+                <Button variant="contained">Create Note</Button>
+              </Link>
             </Box>
             {notesData &&
               notesData?.notesData?.data?.data.map((item) => {
