@@ -8,6 +8,9 @@ import {
   CREATE_NOTES_REQUEST,
   CREATE_NOTES_SUCCESS,
   CREATE_NOTES_FAILURE,
+  EDIT_NOTE_REQUEST,
+  EDIT_NOTE_SUCCESS,
+  EDIT_NOTE_FAILURE,
 } from "./notesActionTypes";
 
 export const getNotesRequest = () => ({
@@ -40,6 +43,20 @@ export const createNotesSuccess = (payload) => ({
 
 export const createNotesFailure = (payload) => ({
   type: CREATE_NOTES_FAILURE,
+  payload,
+});
+
+export const editNoteRequest = () => ({
+  type: EDIT_NOTE_REQUEST,
+});
+
+export const editNoteSuccess = (payload) => ({
+  type: EDIT_NOTE_SUCCESS,
+  payload,
+});
+
+export const editNoteFailure = (payload) => ({
+  type: EDIT_NOTE_FAILURE,
   payload,
 });
 
@@ -95,5 +112,25 @@ export const createNote = (payload) => (dispatch) => {
     })
     .catch((err) => {
       dispatch(createNotesFailure(err));
+    });
+};
+
+export const editNote = (id, payload) => (dispatch) => {
+  dispatch(editNoteRequest());
+
+  const config = {
+    headers: {
+      "Content-type": "application/json",
+      "x-access-token": getLocalData("userInfo")?.token,
+    },
+  };
+
+  return axios
+    .put(`http://localhost:6800/note/updateNote/${id}`, payload, config)
+    .then((response) => {
+      dispatch(editNoteSuccess(response));
+    })
+    .catch((err) => {
+      dispatch(editNoteFailure(err));
     });
 };

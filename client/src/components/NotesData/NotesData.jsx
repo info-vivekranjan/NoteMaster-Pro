@@ -95,14 +95,19 @@ const NotesData = () => {
                       </AccordionDetails>
                       <Divider />
                       <Box sx={{ ml: "15px", pt: "10px" }}>
-                        <Button
-                          variant="contained"
-                          size="small"
-                          endIcon={<EditIcon />}
-                          sx={{ mr: "15px" }}
+                        <Link
+                          to={`/edit-note/${item._id}`}
+                          style={{ textDecoration: "none" }}
                         >
-                          Edit
-                        </Button>
+                          <Button
+                            variant="contained"
+                            size="small"
+                            endIcon={<EditIcon />}
+                            sx={{ mr: "15px" }}
+                          >
+                            Edit
+                          </Button>
+                        </Link>
                         <Button
                           variant="contained"
                           size="small"

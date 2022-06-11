@@ -6,6 +6,9 @@ import {
   CREATE_NOTES_REQUEST,
   CREATE_NOTES_SUCCESS,
   CREATE_NOTES_FAILURE,
+  EDIT_NOTE_REQUEST,
+  EDIT_NOTE_SUCCESS,
+  EDIT_NOTE_FAILURE,
 } from "./notesActionTypes";
 
 let initialState = {
@@ -20,6 +23,11 @@ let initialState = {
   createAllNotesFailure: false,
   createdNoteData: [],
   createdFailureData: "",
+  editAllNoteRequest: false,
+  editAllNoteSuccess: false,
+  editAllNoteFailure: false,
+  editedNoteData: [],
+  editedFailureData: "",
 };
 
 export const notesReducer = (state = initialState, { type, payload }) => {
@@ -66,6 +74,25 @@ export const notesReducer = (state = initialState, { type, payload }) => {
         createAllNotesRequest: false,
         createAllNotesFailure: true,
         createdFailureData: payload,
+      };
+    case EDIT_NOTE_REQUEST:
+      return {
+        ...state,
+        editAllNoteRequest: true,
+      };
+    case EDIT_NOTE_SUCCESS:
+      return {
+        ...state,
+        editAllNoteRequest: false,
+        editAllNoteSuccess: true,
+        editedNoteData: payload,
+      };
+    case EDIT_NOTE_FAILURE:
+      return {
+        ...state,
+        editAllNoteRequest: false,
+        editAllNoteFailure: true,
+        editedFailureData: payload,
       };
     default:
       return state;
