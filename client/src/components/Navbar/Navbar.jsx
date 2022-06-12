@@ -72,6 +72,13 @@ export default function PrimarySearchAppBar() {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openProfileMenu = Boolean(anchorEl);
+
+  const [searchNote, setSearchNote] = React.useState("");
+
+  const handleChangeSearchNote = (e)=>{
+    setSearchNote(e.target.value)
+  }
+
   const handleProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -109,6 +116,8 @@ export default function PrimarySearchAppBar() {
     dispatch(getAllNotes());
   }, []);
 
+  console.log(searchNote);
+
   return (
     <Box sx={{ position: "fixed", width: "100%", zIndex: 10000 }}>
       <ThemeProvider theme={theme}>
@@ -124,6 +133,8 @@ export default function PrimarySearchAppBar() {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
+                onChange={handleChangeSearchNote}
+                value={searchNote}
               />
             </Search>
             <Box sx={{ flexGrow: 1 }} />

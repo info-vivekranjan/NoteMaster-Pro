@@ -92,6 +92,14 @@ const NotesData = () => {
                           />
                         </Box>
                         <Typography>{item.content}</Typography>
+                        <Typography
+                          variant="caption"
+                          display="block"
+                          gutterBottom
+                          sx={{ mt: '15px' }}
+                        >
+                          -- Created on : {item.createdAt.substring(0, 10)}
+                        </Typography>
                       </AccordionDetails>
                       <Divider />
                       <Box sx={{ ml: "15px", pt: "10px" }}>

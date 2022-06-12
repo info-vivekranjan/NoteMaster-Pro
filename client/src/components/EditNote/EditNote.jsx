@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Typography, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { editNote } from "../../redux/notes/notesAction";
@@ -6,15 +6,17 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./EditNote.module.css";
 import Navbar from "../Navbar/Navbar";
+import { getLocalData } from "../../utils/localStorage";
+import axios from "axios";
 
 const EditNote = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const editedNoteData = useSelector((state) => state.editedNoteData);
+  const editedNoteData = useSelector((state) => state.notesData.editedNoteData);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
-  const {id} = useParams();
+  const { id } = useParams();
 
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -43,7 +45,31 @@ const EditNote = () => {
     },
   });
 
-  console.log(editedNoteData);
+  useEffect(() => {
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        "x-access-token": getLocalData("userInfo")?.token,
+      },
+    };
+
+    const fetchSingleData = () => {
+      return axios
+        .get(`http://localhost:6800/note/getSingleNote/${id}`, config)
+        .then((res) => {
+          console.log("res==", res);
+          setTitle(res?.data?.data?.title);
+          setContent(res?.data?.data?.content);
+          setCategory(res?.data?.data?.category);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    fetchSingleData();
+  }, [id]);
+
+  console.log("singleNoteData", { title, content, category });
   return (
     <>
       <Navbar />
