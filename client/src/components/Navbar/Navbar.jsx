@@ -75,9 +75,9 @@ export default function PrimarySearchAppBar() {
 
   const [searchNote, setSearchNote] = React.useState("");
 
-  const handleChangeSearchNote = (e)=>{
-    setSearchNote(e.target.value)
-  }
+  const handleChangeSearchNote = (e) => {
+    setSearchNote(e.target.value);
+  };
 
   const handleProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -109,7 +109,7 @@ export default function PrimarySearchAppBar() {
   });
   const LogoutUser = () => {
     localStorage.clear();
-    navigate("/login");
+    navigate("/");
   };
 
   useEffect(() => {
@@ -124,7 +124,9 @@ export default function PrimarySearchAppBar() {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
-              T-A-N
+              <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+                T-A-N
+              </Link>
             </Typography>
             <Search>
               <SearchIconWrapper>

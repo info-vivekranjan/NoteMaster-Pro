@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Box, Button, Typography } from "@mui/material";
 import styles from "./Dashboard.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {getLocalData} from '../../utils/localStorage';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
   let theme = createTheme({
     palette: {
       primary: {
@@ -15,6 +18,12 @@ const Dashboard = () => {
       },
     },
   });
+  useEffect(() => {
+    if (getLocalData("userInfo")?.token?.length > 0) {
+      navigate("/notes");
+    }
+  }, [getLocalData("userInfo")?.token]);
+
   return (
     <Box className={styles.dashboardCont}>
       <ThemeProvider theme={theme}>
