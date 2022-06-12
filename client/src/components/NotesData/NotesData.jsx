@@ -1,4 +1,4 @@
-import { Box, Typography, Button, Badge, Divider } from "@mui/material";
+import { Box, Typography, Button, Divider, Chip } from "@mui/material";
 import React, { useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -75,20 +75,19 @@ const NotesData = () => {
                         <Typography>{item.title}</Typography>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <Box sx={{ ml: "25px", mb: "7px" }}>
-                          <Badge
-                            color="success"
-                            badgeContent={
+                        <Box sx={{ mb: "7px" }}>
+                          <Chip
+                            label={
                               <b
                                 style={{
-                                  fontSize: "15px",
-                                  padding: "5px",
                                   textTransform: "capitalize",
                                 }}
                               >
                                 {item.category}
                               </b>
                             }
+                            color="success"
+                            size="small"
                           />
                         </Box>
                         <Typography>{item.content}</Typography>
@@ -96,7 +95,7 @@ const NotesData = () => {
                           variant="caption"
                           display="block"
                           gutterBottom
-                          sx={{ mt: '15px' }}
+                          sx={{ mt: "15px" }}
                         >
                           -- Created on : {item.createdAt.substring(0, 10)}
                         </Typography>
