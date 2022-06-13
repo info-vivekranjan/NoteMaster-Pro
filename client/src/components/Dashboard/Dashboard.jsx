@@ -29,7 +29,7 @@ const Dashboard = () => {
       <ThemeProvider theme={theme}>
         <Box className={styles.headerText}>
           <Typography style={{ fontSize: "3.3rem", marginBottom: "5rem" }}>
-            Sometimes it's important to <br /> Take-a-note
+            Sometimes it's important to <br /> Make notes
           </Typography>
           <Box
             style={{

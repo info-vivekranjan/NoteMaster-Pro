@@ -125,7 +125,7 @@ export default function PrimarySearchAppBar() {
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
               <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-                T-A-N
+                N-M
               </Link>
             </Typography>
             <Search>
