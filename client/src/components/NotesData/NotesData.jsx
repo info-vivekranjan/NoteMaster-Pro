@@ -38,10 +38,10 @@ const NotesData = () => {
     dispatch(getAllNotes());
   }, [dispatch]);
 
-  // if (notesData?.failureData?.response?.data.message === "Invalid Token") {
-  //   localStorage.clear();
-  //   navigate("/login");
-  // }
+  if (notesData?.failureData?.response?.data.message === "Invalid Token") {
+    localStorage.clear();
+    navigate("/login");
+  }
   console.log(notesData?.failureData?.response?.data.message);
   return (
     <React.Fragment>
@@ -65,6 +65,7 @@ const NotesData = () => {
                       style={{
                         marginBottom: "15px",
                         padding: "5px",
+                        backgroundColor: "#fffad0",
                       }}
                     >
                       <AccordionSummary
