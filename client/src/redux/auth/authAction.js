@@ -24,7 +24,7 @@ export const authLogin = (payload) => (dispatch) => {
     },
   };
   return axios
-    .post(`${process.env.REACT_APP_BACKEND_HOSTNAME}/user/login`, payload, config)
+    .post(`/user/login`, payload, config)
     .then((response) => {
       dispatch(authSuccess(response));
       setLocalData("userInfo", response?.data?.data);
