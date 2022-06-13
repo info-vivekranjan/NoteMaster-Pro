@@ -55,7 +55,7 @@ const EditNote = () => {
 
     const fetchSingleData = () => {
       return axios
-        .get(`http://localhost:6800/note/getSingleNote/${id}`, config)
+        .get(`${process.env.REACT_APP_BACKEND_HOSTNAME}/note/getSingleNote/${id}`, config)
         .then((res) => {
           console.log("res==", res);
           setTitle(res?.data?.data?.title);

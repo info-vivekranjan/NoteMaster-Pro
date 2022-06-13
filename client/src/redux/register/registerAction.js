@@ -28,7 +28,7 @@ export const authRegister = (payload) => (dispatch) => {
   };
 
   return axios
-    .post("http://localhost:6800/user/register", payload, config)
+    .post(`${process.env.REACT_APP_BACKEND_HOSTNAME}/user/register`, payload, config)
     .then((response) => {
       dispatch(registerSuccess(response));
     })
