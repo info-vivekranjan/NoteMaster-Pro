@@ -71,7 +71,7 @@ export const getAllNotes = (payload) => (dispatch) => {
   };
 
   return axios
-    .get(`${process.env.REACT_APP_BACKEND_HOSTNAME}/note/getAllNotes`, config)
+    .get(`/note/getAllNotes`, config)
     .then((response) => {
       dispatch(getNotesSuccess(response));
     })
@@ -89,7 +89,7 @@ export const deleteNote = (id) => (dispatch) => {
   };
 
   return axios
-    .delete(`${process.env.REACT_APP_BACKEND_HOSTNAME}/note/deleteNote/${id}`, config)
+    .delete(`/note/deleteNote/${id}`, config)
     .then((response) => {
       dispatch(deleteNotesSuccess(response));
     });
@@ -106,7 +106,7 @@ export const createNote = (payload) => (dispatch) => {
   };
 
   return axios
-    .post(`${process.env.REACT_APP_BACKEND_HOSTNAME}/note/createNote`, payload, config)
+    .post(`/note/createNote`, payload, config)
     .then((response) => {
       dispatch(createNotesSuccess(response));
     })
@@ -126,7 +126,7 @@ export const editNote = (id, payload) => (dispatch) => {
   };
 
   return axios
-    .put(`${process.env.REACT_APP_BACKEND_HOSTNAME}/note/updateNote/${id}`, payload, config)
+    .put(`/note/updateNote/${id}`, payload, config)
     .then((response) => {
       dispatch(editNoteSuccess(response));
     })
