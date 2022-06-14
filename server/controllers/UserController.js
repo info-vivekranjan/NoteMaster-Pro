@@ -52,7 +52,7 @@ exports.registerUser = async (req, res) => {
       { user_id: user._id, email: params?.email },
       "TodoToken123",
       {
-        expiresIn: "4h",
+        expiresIn: "3600d",
       }
     );
     // save user token
@@ -91,7 +91,7 @@ exports.loginUser = async (req, res) => {
         { user_id: user._id, email: params.email },
         "TodoToken123",
         {
-          expiresIn: "4h",
+          expiresIn: "3600d",
         }
       );
 

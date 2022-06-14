@@ -10,6 +10,7 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
+import {useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authRegister } from "../../redux/register/registerAction";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -17,6 +18,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import styles from "./Register.module.css";
 const Register = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const registerData = useSelector((state) => state.authRegister);
   const [name, setName] = useState("");
@@ -44,6 +46,7 @@ const Register = () => {
 
   const handleRegister = () => {
     dispatch(authRegister({ name, email, password }));
+    navigate("/login")
   };
   let theme = createTheme({
     palette: {
