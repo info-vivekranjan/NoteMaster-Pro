@@ -29,7 +29,8 @@ exports.getAllNotes = async (req, res) => {
     let noteData = await notes
       .find({ user: req.user._id })
       .limit(pageSize)
-      .skip(skip);
+      .skip(skip)
+      .sort({ createdAt: -1 });
     if (noteData && noteData.length === 0) {
       return res.status(200).json({
         code: 2000,
@@ -54,10 +55,8 @@ exports.getAllNotes = async (req, res) => {
 };
 
 exports.getSingleNote = async (req, res) => {
-
   try {
-    let noteData = await notes
-      .findById(req.params.id)
+    let noteData = await notes.findById(req.params.id);
     if (noteData && noteData.length === 0) {
       return res.status(200).json({
         code: 2000,
