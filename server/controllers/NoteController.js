@@ -21,15 +21,9 @@ exports.createNotes = async (req, res) => {
 };
 
 exports.getAllNotes = async (req, res) => {
-  const pageNumber = parseInt(req.query.pageNumber) || 0;
-  const pageSize = parseInt(req.query.pageSize) || 10;
-  const skip = pageNumber * pageSize;
-
   try {
     let noteData = await notes
       .find({ user: req.user._id })
-      .limit(pageSize)
-      .skip(skip)
       .sort({ createdAt: -1 });
     if (noteData && noteData.length === 0) {
       return res.status(200).json({
