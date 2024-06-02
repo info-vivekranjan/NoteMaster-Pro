@@ -11,12 +11,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllNotes, deleteNote } from "../../redux/notes/notesAction";
 import Navbar from "../Navbar/Navbar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NotesData = () => {
   const dispatch = useDispatch();
   const notesData = useSelector((state) => state.notesData);
-  const navigate = useNavigate();
 
   let theme = createTheme({
     palette: {
