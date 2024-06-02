@@ -67,6 +67,7 @@ const NotesData = () => {
                         padding: "5px",
                         backgroundColor: "#fffad0",
                       }}
+                      defaultExpanded
                     >
                       <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
@@ -102,7 +103,7 @@ const NotesData = () => {
                         </Typography>
                       </AccordionDetails>
                       <Divider />
-                      <Box sx={{ ml: "15px", pt: "10px" }}>
+                      <Box sx={{ display:'flex', justifyContent: 'flex-end', ml: "15px", pt: "10px" }}>
                         <Link
                           to={`/edit-note/${item._id}`}
                           style={{ textDecoration: "none" }}
