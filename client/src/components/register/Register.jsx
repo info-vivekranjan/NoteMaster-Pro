@@ -28,6 +28,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [profile, setProfile] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
 
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -47,12 +48,21 @@ const Register = () => {
     event.preventDefault();
   };
 
+  const handleChangeProfile = (e) => {
+    const file = e.target.files[0];
+    setProfile(file);
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setImageURL(url);
+    }
+  };
+
   const handleRegister = () => {
     const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('file', profile);
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("file", profile);
 
     console.log(formData);
 
@@ -69,7 +79,7 @@ const Register = () => {
       },
     },
   });
-
+  console.log(profile);
   return (
     <Box className={styles.registerCont}>
       <ThemeProvider theme={theme}>
@@ -80,18 +90,26 @@ const Register = () => {
           <br />
           <Box>
             <label for="img">
-              <img
-                src={profile_icon}
-                alt="Profile"
-                style={{ width: "20%", borderRadius: "50%" }}
-              />
+              {imageURL ? (
+                <img
+                  src={imageURL}
+                  alt="Profile"
+                  style={{ width: "20%", borderRadius: "50%" }}
+                />
+              ) : (
+                <img
+                  src={profile_icon}
+                  alt="Profile"
+                  style={{ width: "20%", borderRadius: "50%" }}
+                />
+              )}
             </label>
             <input
               type="file"
               id="img"
               name="img"
               accept="image/*"
-              onChange={(e) => setProfile(e.target.files[0])}
+              onChange={handleChangeProfile}
               style={{ display: "none" }}
             />
           </Box>
