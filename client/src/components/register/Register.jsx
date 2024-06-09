@@ -10,13 +10,15 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authRegister } from "../../redux/register/registerAction";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import styles from "./Register.module.css";
+import profile_icon from "../../images/avatar_icon.png";
+
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,6 +27,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [profile, setProfile] = useState(null);
 
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -45,8 +48,16 @@ const Register = () => {
   };
 
   const handleRegister = () => {
-    dispatch(authRegister({ name, email, password }));
-    navigate("/login")
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('file', profile);
+
+    console.log(formData);
+
+    dispatch(authRegister(formData));
+    navigate("/login");
   };
   let theme = createTheme({
     palette: {
@@ -59,7 +70,6 @@ const Register = () => {
     },
   });
 
-  console.log(registerData);
   return (
     <Box className={styles.registerCont}>
       <ThemeProvider theme={theme}>
@@ -67,6 +77,24 @@ const Register = () => {
           <Typography variant="h3">Register</Typography>
           <br />
           <br />
+          <br />
+          <Box>
+            <label for="img">
+              <img
+                src={profile_icon}
+                alt="Profile"
+                style={{ width: "20%", borderRadius: "50%" }}
+              />
+            </label>
+            <input
+              type="file"
+              id="img"
+              name="img"
+              accept="image/*"
+              onChange={(e) => setProfile(e.target.files[0])}
+              style={{ display: "none" }}
+            />
+          </Box>
           <br />
           <TextField
             id="name-basic"

@@ -52,7 +52,7 @@ const NotesData = () => {
   //   localStorage.clear();
   //   navigate("/login");
   // }
-  console.log(notesData);
+  // console.log(notesData);
   return (
     <React.Fragment>
       <Navbar />
@@ -175,7 +175,7 @@ const NotesData = () => {
               <Button variant="contained" disabled={page <= 1} onClick={() => setPage(page - 1)} sx={{ mr: '20px' }}>
                 <ArrowBackIosIcon />
               </Button>
-              <Button variant="contained" disabled={page >= notesData?.notesData?.data.totalPages} onClick={() => setPage(page + 1)}><ArrowForwardIosIcon /></Button>
+              <Button variant="contained" disabled={page >= notesData?.notesData?.data?.totalPages} onClick={() => setPage(page + 1)}><ArrowForwardIosIcon /></Button>
             </Box>
           </Container>
         </ThemeProvider>
