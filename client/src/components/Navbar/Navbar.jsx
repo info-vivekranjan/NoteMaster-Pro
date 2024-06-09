@@ -17,10 +17,11 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import { Avatar, Button } from "@mui/material";
+import styles from "./Navbar.module.css";
 
 export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
-  const userProfilePic = JSON.parse(localStorage.getItem('userInfo'))?.pic;
+  const userProfilePic = JSON.parse(localStorage.getItem("userInfo"))?.pic;
   const [openDialog, setOpenDialog] = React.useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -121,10 +122,12 @@ export default function PrimarySearchAppBar() {
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
             <MenuItem>
-              <ListItemIcon>
-                <PersonAdd fontSize="small" />
-              </ListItemIcon>
-              Profile
+              <Link to="/profile" className={styles.menuItemProfile}>
+                <ListItemIcon>
+                  <PersonAdd fontSize="small" />
+                </ListItemIcon>
+                <Box>Profile</Box>
+              </Link>
             </MenuItem>
             <MenuItem onClick={handleClickOpenDialog}>
               <ListItemIcon>

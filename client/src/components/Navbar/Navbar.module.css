@@ -1,0 +1,6 @@
+.menuItemProfile {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  justify-items: center;
+}
