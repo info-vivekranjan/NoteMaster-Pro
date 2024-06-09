@@ -1,5 +1,12 @@
-import { Box, Typography, Button, Divider, Chip } from "@mui/material";
-import React, { useEffect } from "react";
+import {
+  Box,
+  Typography,
+  Button,
+  Divider,
+  Chip,
+  Skeleton,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -7,16 +14,20 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Container from "@mui/material/Container";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllNotes, deleteNote } from "../../redux/notes/notesAction";
 import Navbar from "../Navbar/Navbar";
 import { Link } from "react-router-dom";
+import styles from './NotesData.module.css';
 
 const NotesData = () => {
+  const [page, setPage] = useState(1);
+  const limit = 3;
   const dispatch = useDispatch();
   const notesData = useSelector((state) => state.notesData);
-
   let theme = createTheme({
     palette: {
       primary: {
@@ -34,20 +45,20 @@ const NotesData = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllNotes());
-  }, [dispatch]);
+    dispatch(getAllNotes(page, limit));
+  }, [dispatch, page]);
 
   // if (notesData?.failureData?.response?.data.message === "Invalid Token") {
   //   localStorage.clear();
   //   navigate("/login");
   // }
-  console.log(notesData?.failureData?.response?.data.message);
+  console.log(notesData);
   return (
     <React.Fragment>
       <Navbar />
       <Box sx={{ pt: "100px" }}>
         <ThemeProvider theme={theme}>
-          <Container maxWidth="lg">
+          <Container maxWidth="lg" sx={{ mb: '50px' }}>
             <Box sx={{ mb: "50px" }}>
               <Typography variant="h4"> Notes</Typography>
             </Box>
@@ -56,7 +67,30 @@ const NotesData = () => {
                 <Button variant="contained">Create Note</Button>
               </Link>
             </Box>
-            {notesData &&
+            {notesData?.allNotesRequest ? (
+              <div
+                style={{
+                  padding: "5px",
+                }}
+              >
+                <Skeleton
+                  variant="rounded"
+                  sx={{ width: "100%", marginBottom: "15px" }}
+                  height={200}
+                />
+                <Skeleton
+                  variant="rounded"
+                  sx={{ width: "100%", marginBottom: "15px" }}
+                  height={200}
+                />
+                <Skeleton
+                  variant="rounded"
+                  sx={{ width: "100%", marginBottom: "15px" }}
+                  height={200}
+                />
+              </div>
+            ) : (
+              notesData &&
               notesData?.notesData?.data?.data.map((item) => {
                 return (
                   <Box key={item._id}>
@@ -102,7 +136,14 @@ const NotesData = () => {
                         </Typography>
                       </AccordionDetails>
                       <Divider />
-                      <Box sx={{ display:'flex', justifyContent: 'flex-end', ml: "15px", pt: "10px" }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          ml: "15px",
+                          pt: "10px",
+                        }}
+                      >
                         <Link
                           to={`/edit-note/${item._id}`}
                           style={{ textDecoration: "none" }}
@@ -128,7 +169,14 @@ const NotesData = () => {
                     </Accordion>
                   </Box>
                 );
-              })}
+              })
+            )}
+            <Box className={styles.paginationCont}>
+              <Button variant="contained" disabled={page <= 1} onClick={() => setPage(page - 1)} sx={{ mr: '20px' }}>
+                <ArrowBackIosIcon />
+              </Button>
+              <Button variant="contained" disabled={page >= notesData?.notesData?.data.totalPages} onClick={() => setPage(page + 1)}><ArrowForwardIosIcon /></Button>
+            </Box>
           </Container>
         </ThemeProvider>
       </Box>

@@ -104,8 +104,9 @@ exports.loginUser = async (req, res) => {
         message: "Signed in successfully",
         data: user,
       });
+    } else {
+      res.status(400).send({ message: "Invalid Credentials" });
     }
-    res.status(400).send({ message: "Invalid Credentials" });
   } catch (err) {
     return res.status(500).json({
       code: 2002,

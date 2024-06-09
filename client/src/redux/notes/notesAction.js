@@ -60,7 +60,7 @@ export const editNoteFailure = (payload) => ({
   payload,
 });
 
-export const getAllNotes = (payload) => (dispatch) => {
+export const getAllNotes = (page, limit) => (dispatch) => {
   dispatch(getNotesRequest());
 
   const config = {
@@ -71,7 +71,7 @@ export const getAllNotes = (payload) => (dispatch) => {
   };
 
   return axios
-    .get(`/note/getAllNotes`, config)
+    .get(`/note/getAllNotes?page=${page}&limit=${limit}`, config)
     .then((response) => {
       dispatch(getNotesSuccess(response));
     })

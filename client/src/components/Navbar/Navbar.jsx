@@ -1,19 +1,13 @@
-import React, { useEffect } from "react";
-import { styled, alpha } from "@mui/material/styles";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
-import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import PersonAdd from "@mui/icons-material/PersonAdd";
+import PersonAdd from "@mui/icons-material/AccountCircle";
 import Logout from "@mui/icons-material/Logout";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -21,63 +15,16 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useSelector, useDispatch } from "react-redux";
-import { getAllNotes } from "../../redux/notes/notesAction";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-  },
-}));
+import { Avatar, Button } from "@mui/material";
 
 export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const notesData = useSelector((state) => state.notesData);
-
+  const userProfilePic = JSON.parse(localStorage.getItem('userInfo'))?.pic;
   const [openDialog, setOpenDialog] = React.useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openProfileMenu = Boolean(anchorEl);
-
-  const [searchNote, setSearchNote] = React.useState("");
-
-  const handleChangeSearchNote = (e) => {
-    setSearchNote(e.target.value);
-  };
 
   const handleProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -112,12 +59,6 @@ export default function PrimarySearchAppBar() {
     navigate("/");
   };
 
-  useEffect(() => {
-    dispatch(getAllNotes());
-  }, []);
-
-  console.log(searchNote);
-
   return (
     <Box sx={{ position: "fixed", width: "100%", zIndex: 10000 }}>
       <ThemeProvider theme={theme}>
@@ -125,34 +66,11 @@ export default function PrimarySearchAppBar() {
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
               <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-                N-M
+                NM
               </Link>
             </Typography>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-                onChange={handleChangeSearchNote}
-                value={searchNote}
-              />
-            </Search>
             <Box sx={{ flexGrow: 1 }} />
             <Box>
-              <Link to="/notes" style={{ textDecoration: "none" }}>
-                <IconButton size="large" color="black">
-                  <Badge
-                    badgeContent={
-                      notesData && notesData?.notesData?.data?.count
-                    }
-                    color="error"
-                  >
-                    <NoteAltIcon />
-                  </Badge>
-                </IconButton>
-              </Link>
               <IconButton
                 size="large"
                 edge="end"
@@ -163,7 +81,7 @@ export default function PrimarySearchAppBar() {
                 color="black"
                 onClick={handleProfileClick}
               >
-                <AccountCircle />
+                <Avatar alt="Profile" src={userProfilePic} />
               </IconButton>
             </Box>
           </Toolbar>

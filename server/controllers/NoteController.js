@@ -21,9 +21,16 @@ exports.createNotes = async (req, res) => {
 };
 
 exports.getAllNotes = async (req, res) => {
+  const {page=1, limit=4} = req.query;
+
   try {
+    let allNoteData = await notes
+    .find({ user: req.user._id });
+
     let noteData = await notes
       .find({ user: req.user._id })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
       .sort({ createdAt: -1 });
     if (noteData && noteData.length === 0) {
       return res.status(200).json({
@@ -36,7 +43,9 @@ exports.getAllNotes = async (req, res) => {
         code: 2001,
         message: "All notes fetched successfully",
         data: noteData,
-        count: noteData.length,
+        count: allNoteData && allNoteData.length,
+        totalPages: Math.ceil(allNoteData && allNoteData.length / limit),
+        currentPage: page,
       });
     }
   } catch (error) {
