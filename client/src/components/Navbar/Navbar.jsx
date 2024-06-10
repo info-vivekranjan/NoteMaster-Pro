@@ -18,6 +18,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import { Avatar, Button } from "@mui/material";
 import styles from "./Navbar.module.css";
+import logo from '../../images/NM.png';
 
 export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
@@ -67,7 +68,7 @@ export default function PrimarySearchAppBar() {
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
               <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-                NM
+                <img src={logo} alt="logo" style={{ width: '70px', padding: '10px', paddingBottom: '0px' }} />
               </Link>
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
