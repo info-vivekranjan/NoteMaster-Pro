@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createNote } from "../../redux/notes/notesAction";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 import styles from "./CreateNote.module.css";
 import Navbar from "../Navbar/Navbar";
 
@@ -14,6 +15,7 @@ const CreateNote = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
+  const [file, setFile] = useState(null);
 
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -25,10 +27,20 @@ const CreateNote = () => {
   const handleChangeCategory = (e) => {
     setCategory(e.target.value);
   };
+  const handleChangeFile = (e) => {
+    const file = e.target.files[0];
+    setFile(file);
+  };
 
   const handleCreateNote = () => {
-    dispatch(createNote({ title, content, category }));
-    navigate("/notes")
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("category", category);
+    formData.append("file", file);
+
+    dispatch(createNote(formData));
+    navigate("/notes");
   };
   let theme = createTheme({
     palette: {
@@ -88,6 +100,27 @@ const CreateNote = () => {
               onChange={handleChangeCategory}
               style={{ width: "60%" }}
             />
+            <br />
+            <br />
+            <Box>
+              <input
+                type="file"
+                id="anyfile"
+                name="anyfile"
+                onChange={handleChangeFile}
+                style={{ display: "none" }}
+              />
+              <label htmlFor="anyfile">
+                <Button
+                  startIcon={<FileUploadIcon />}
+                  variant="contained"
+                  style={{ width: "60%" }}
+                  component="span"
+                >
+                  Upload File
+                </Button>
+              </label>
+            </Box>
             <br />
             <br />
             <Button

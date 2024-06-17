@@ -2,7 +2,10 @@ const notes = require("../models/NoteModel");
 
 exports.createNotes = async (req, res) => {
   const { title, content, category } = req.body;
-  const body = { user: req.user._id, title, content, category };
+  const anyfile = req?.file?.path;
+  const body = { user: req.user._id, title, content, category, anyfile };
+
+  console.log(body);
 
   await notes.create(body, (error, addedNotes) => {
     if (error) {

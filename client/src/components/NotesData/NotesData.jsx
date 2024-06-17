@@ -14,14 +14,15 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Container from "@mui/material/Container";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import DownloadIcon from "@mui/icons-material/Download";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllNotes, deleteNote } from "../../redux/notes/notesAction";
 import Navbar from "../Navbar/Navbar";
 import { Link } from "react-router-dom";
-import styles from './NotesData.module.css';
+import styles from "./NotesData.module.css";
 
 const NotesData = () => {
   const [page, setPage] = useState(1);
@@ -58,7 +59,7 @@ const NotesData = () => {
       <Navbar />
       <Box sx={{ pt: "100px" }}>
         <ThemeProvider theme={theme}>
-          <Container maxWidth="lg" sx={{ mb: '50px' }}>
+          <Container maxWidth="lg" sx={{ mb: "50px" }}>
             <Box sx={{ mb: "50px" }}>
               <Typography variant="h4"> Notes</Typography>
             </Box>
@@ -107,7 +108,9 @@ const NotesData = () => {
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                       >
-                        <Typography>{item.title}</Typography>
+                        <Typography sx={{ fontWeight: "bold" }}>
+                          {item.title}
+                        </Typography>
                       </AccordionSummary>
                       <AccordionDetails>
                         <Box sx={{ mb: "7px" }}>
@@ -134,6 +137,20 @@ const NotesData = () => {
                         >
                           -- Created on : {item.createdAt.substring(0, 10)}
                         </Typography>
+                        {item?.anyfile && (
+                          <a
+                            href={`http://localhost:6800/${item?.anyfile}`}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <Button
+                              endIcon={<DownloadIcon />}
+                              variant="contained"
+                            >
+                              Download File
+                            </Button>
+                          </a>
+                        )}
                       </AccordionDetails>
                       <Divider />
                       <Box
@@ -172,10 +189,21 @@ const NotesData = () => {
               })
             )}
             <Box className={styles.paginationCont}>
-              <Button variant="contained" disabled={page <= 1} onClick={() => setPage(page - 1)} sx={{ mr: '20px' }}>
+              <Button
+                variant="contained"
+                disabled={page <= 1}
+                onClick={() => setPage(page - 1)}
+                sx={{ mr: "20px" }}
+              >
                 <ArrowBackIosIcon />
               </Button>
-              <Button variant="contained" disabled={page >= notesData?.notesData?.data?.totalPages} onClick={() => setPage(page + 1)}><ArrowForwardIosIcon /></Button>
+              <Button
+                variant="contained"
+                disabled={page >= notesData?.notesData?.data?.totalPages}
+                onClick={() => setPage(page + 1)}
+              >
+                <ArrowForwardIosIcon />
+              </Button>
             </Box>
           </Container>
         </ThemeProvider>

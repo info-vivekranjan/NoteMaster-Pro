@@ -14,6 +14,10 @@ const noteSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    anyfile: {
+      type: String,
+      required: false,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
