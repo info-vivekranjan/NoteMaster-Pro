@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Box, Button, Typography, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { createNote } from "../../redux/notes/notesAction";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -16,6 +25,17 @@ const CreateNote = () => {
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
   const [file, setFile] = useState(null);
+  const names = [
+    "Technical",
+    "Social",
+    "Creative",
+    "Personal Development",
+    "Professional",
+    "Financial",
+    "Travel",
+    "Miscellaneous",
+    "Others",
+  ];
 
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -90,7 +110,23 @@ const CreateNote = () => {
             />
             <br />
             <br />
-            <TextField
+            <FormControl style={{ width: "60%" }}>
+              <InputLabel id="category-simple-select-label">Category</InputLabel>
+              <Select
+                labelId="category-simple-select-label"
+                id="category-simple-select"
+                value={category}
+                label="Category"
+                onChange={handleChangeCategory}
+              >
+                {names.map((name) => (
+                  <MenuItem key={name} value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            {/* <TextField
               id="category-basic"
               label="Category"
               variant="outlined"
@@ -99,7 +135,7 @@ const CreateNote = () => {
               value={category}
               onChange={handleChangeCategory}
               style={{ width: "60%" }}
-            />
+            /> */}
             <br />
             <br />
             <Box>

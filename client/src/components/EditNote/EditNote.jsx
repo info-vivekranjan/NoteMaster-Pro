@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editNote } from "../../redux/notes/notesAction";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate, useParams } from "react-router-dom";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 import styles from "./EditNote.module.css";
 import Navbar from "../Navbar/Navbar";
 import { getLocalData } from "../../utils/localStorage";
@@ -16,6 +17,7 @@ const EditNote = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
+  const [file, setFile] = useState(null);
   const { id } = useParams();
 
   const handleChangeTitle = (e) => {
@@ -29,9 +31,19 @@ const EditNote = () => {
     setCategory(e.target.value);
   };
 
+  const handleChangeFile = (e) => {
+    const file = e.target.files[0];
+    setFile(file);
+  };
+
+
   const handleEditNote = () => {
-    const payload = { title, content, category };
-    dispatch(editNote(id, payload));
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("category", category);
+    formData.append("file", file);
+    dispatch(editNote(id, formData));
     navigate("/notes");
   };
   let theme = createTheme({
@@ -61,6 +73,7 @@ const EditNote = () => {
           setTitle(res?.data?.data?.title);
           setContent(res?.data?.data?.content);
           setCategory(res?.data?.data?.category);
+          setFile(res?.data?.data?.anyfile);
         })
         .catch((err) => {
           console.log(err);
@@ -69,7 +82,7 @@ const EditNote = () => {
     fetchSingleData();
   }, [id]);
 
-  console.log("singleNoteData", { title, content, category });
+  console.log("singleNoteData", file);
   return (
     <>
       <Navbar />
@@ -116,6 +129,27 @@ const EditNote = () => {
               onChange={handleChangeCategory}
               style={{ width: "60%" }}
             />
+            <br />
+            <br />
+            <Box>
+              <input
+                type="file"
+                id="anyfile"
+                name="anyfile"
+                onChange={handleChangeFile}
+                style={{ display: "none" }}
+              />
+              <label htmlFor="anyfile">
+                <Button
+                  startIcon={<FileUploadIcon />}
+                  variant="contained"
+                  style={{ width: "60%" }}
+                  component="span"
+                >
+                  Upload File
+                </Button>
+              </label>
+            </Box>
             <br />
             <br />
             <Button

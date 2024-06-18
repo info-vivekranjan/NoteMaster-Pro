@@ -104,11 +104,13 @@ exports.deleteNote = async (req, res) => {
 };
 
 exports.updateNote = async (req, res) => {
+  const anyfile = req?.file?.path;
   const { title, content, category } = req.body;
   const body = {
     title,
     content,
     category,
+    anyfile
   };
   try {
     const updatedNote = await notes.findByIdAndUpdate(req.params.id, body, {
