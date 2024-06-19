@@ -1,0 +1,63 @@
+.textAreaContainer {
+    height: 300px !important;
+    border: none;
+    max-width: 70%;
+    overflow: auto;
+    cursor: text;
+    border: 1px solid #7d7e81;
+  }
+  
+  .draftHead {
+    max-width: calc(70% + 2px);
+  }
+  
+  .textDecorationUnderline {
+    text-decoration: underline !important;
+  }
+  
+  .toolbutton {
+    background-color: #7d7e81;
+    color: white;
+    border: none;
+    display: flex;
+    padding: 20px;
+  }
+  
+  .DraftEditor-editorContainer {
+    height: 200px;
+  }
+  
+  .selectHeaderBox {
+    width: 55px;
+  }
+  
+  .colorPicker div div {
+    vertical-align: middle;
+  }
+  
+  .borderRight {
+    border-right: 1px solid #4e4f51;
+  }
+  
+  .borderLeft {
+    border-left: 1px solid #7d7e81;
+  }
+  
+  @media screen and (max-width: 567px) {
+    .draftHead {
+      max-width: 100%;
+    }
+  
+    .borderRight {
+      border-right: 1px solid #4e4f51;
+    }
+  
+    .borderLeft {
+      border-left: 1px solid #7d7e81;
+    }
+  
+    .textAreaContainer {
+      max-width: 100%;
+    }
+  }
+  

@@ -7,6 +7,7 @@ import CreateNote from "../components/CreateNote/CreateNote";
 import EditNote from "../components/EditNote/EditNote";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "../components/Profile/Profile";
+import TextEditor from '../components/TextEditor'
 
 const Router = () => {
   return (
@@ -20,6 +21,14 @@ const Router = () => {
           element={
             <PrivateRoute>
               <NotesData />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/text-editor"
+          element={
+            <PrivateRoute>
+              <TextEditor />
             </PrivateRoute>
           }
         />
