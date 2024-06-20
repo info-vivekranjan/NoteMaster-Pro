@@ -18,7 +18,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import { Avatar, Button } from "@mui/material";
 import styles from "./Navbar.module.css";
-import logo from '../../images/NM.png';
+import logo from "../../images/NM.png";
 
 export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
@@ -66,11 +66,34 @@ export default function PrimarySearchAppBar() {
       <ThemeProvider theme={theme}>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" noWrap component="div">
-              <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-                <img src={logo} alt="logo" style={{ width: '70px', padding: '10px', paddingBottom: '0px' }} />
+            <Box>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <img
+                  src={logo}
+                  alt="logo"
+                  style={{
+                    width: "70px",
+                    padding: "0px 10px",
+                  }}
+                />
               </Link>
-            </Typography>
+            </Box>
+            <Box sx={{ display:"flex", ml: '1%' }}>
+              <Box>
+                <Link to="/notes" style={{ textDecoration: "none" }}>
+                  <Typography variant="subtitle1" className={styles.mr2}>
+                    Notes
+                  </Typography>
+                </Link>
+              </Box>
+              <Box>
+                <Link to="/text-editor" style={{ textDecoration: "none" }}>
+                  <Typography variant="subtitle1" className={styles.mr2}>
+                    Text editor
+                  </Typography>
+                </Link>
+              </Box>
+            </Box>
             <Box sx={{ flexGrow: 1 }} />
             <Box>
               <IconButton

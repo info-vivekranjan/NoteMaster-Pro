@@ -3,6 +3,7 @@ import { EditorState, RichUtils, AtomicBlockUtils } from "draft-js";
 import Editor from "@draft-js-plugins/editor";
 import createImagePlugin from "@draft-js-plugins/image";
 import createLinkPlugin from "@draft-js-plugins/anchor";
+import createVideoPlugin from '@draft-js-plugins/video';
 import Select from "react-select";
 import cn from "classnames";
 import { stateToHTML } from "draft-js-export-html";
@@ -12,6 +13,7 @@ import { Box, Container, TextField, Typography } from "@mui/material";
 
 const imagePlugin = createImagePlugin();
 const linkPlugin = createLinkPlugin();
+const videoPlugin = createVideoPlugin();
 
 const headerOptions = [
   { label: "H1", value: "header-one" },
@@ -61,7 +63,7 @@ const RenderDraftTinyMce = (props) => {
 
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const editorRef = useRef(null);
-  const plugins = [imagePlugin, linkPlugin];
+  const plugins = [imagePlugin, linkPlugin, videoPlugin];
 
   const getLengthOfSelectedText = () => {
     const currentSelection = editorState.getSelection();

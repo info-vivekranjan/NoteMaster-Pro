@@ -4,3 +4,15 @@
   display: flex;
   justify-items: center;
 }
+
+.mr2{
+  margin-right: 20px;
+  padding: 0px 10px;
+  color: white;
+  font-weight: 600;
+  background-color: #1414142a;
+}
+
+.mr2:hover{
+  background-color: #1414143b;
+}
