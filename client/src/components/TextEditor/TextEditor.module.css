@@ -1,14 +1,14 @@
 .textAreaContainer {
     height: 300px !important;
     border: none;
-    max-width: 70%;
+    max-width: 85%;
     overflow: auto;
     cursor: text;
     border: 1px solid #7d7e81;
   }
   
   .draftHead {
-    max-width: calc(70% + 2px);
+    max-width: calc(85% + 2px);
   }
   
   .textDecorationUnderline {

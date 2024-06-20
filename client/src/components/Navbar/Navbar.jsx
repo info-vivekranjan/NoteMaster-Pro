@@ -78,8 +78,8 @@ export default function PrimarySearchAppBar() {
                 />
               </Link>
             </Box>
-            <Box sx={{ display:"flex", ml: '1%' }}>
-              <Box>
+            <Box sx={{ display:"flex", ml: '1%'}}>
+              <Box sx={{ mr: "20px" }}>
                 <Link to="/notes" style={{ textDecoration: "none" }}>
                   <Typography variant="subtitle1" className={styles.mr2}>
                     Notes

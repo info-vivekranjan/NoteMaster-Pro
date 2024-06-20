@@ -216,7 +216,7 @@ const RenderDraftTinyMce = (props) => {
     <>
       <Navbar />
       <Box style={{ paddingTop: "100px" }}>
-        <Container maxWidth="xxl">
+        <Container maxWidth="xl">
           <Box sx={{ mb: "50px" }}>
             <Typography variant="h4">Text Editor</Typography>
           </Box>
@@ -335,7 +335,7 @@ const RenderDraftTinyMce = (props) => {
               value={description}
               multiline
               rows={10}
-              style={{ width: "70%" }}
+              style={{ width: "85%" }}
             />
           </Box>
         </Container>
