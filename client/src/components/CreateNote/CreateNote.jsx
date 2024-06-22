@@ -14,7 +14,7 @@ import { createNote } from "../../redux/notes/notesAction";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
-import styles from "./CreateNote.module.css";
+import styles from "./CreateNote.module.scss";
 import Navbar from "../Navbar/Navbar";
 
 const CreateNote = () => {

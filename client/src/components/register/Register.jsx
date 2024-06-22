@@ -16,7 +16,7 @@ import { authRegister } from "../../redux/register/registerAction";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
-import styles from "./Register.module.css";
+import styles from "./Register.module.scss";
 import profile_icon from "../../images/avatar_icon.png";
 
 const Register = () => {

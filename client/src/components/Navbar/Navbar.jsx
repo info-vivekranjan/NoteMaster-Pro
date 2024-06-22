@@ -17,7 +17,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import { Avatar, Button } from "@mui/material";
-import styles from "./Navbar.module.css";
+import styles from "./Navbar.module.scss";
 import logo from "../../images/NM.png";
 
 export default function PrimarySearchAppBar() {

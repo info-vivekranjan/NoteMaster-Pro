@@ -5,7 +5,7 @@ import { editNote } from "../../redux/notes/notesAction";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate, useParams } from "react-router-dom";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
-import styles from "./EditNote.module.css";
+import styles from "./EditNote.module.scss";
 import Navbar from "../Navbar/Navbar";
 import { getLocalData } from "../../utils/localStorage";
 import axios from "axios";

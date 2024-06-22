@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { Box, Button, Typography } from "@mui/material";
-import styles from "./Dashboard.module.css";
+import styles from "./Dashboard.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {getLocalData} from '../../utils/localStorage';

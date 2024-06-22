@@ -22,7 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllNotes, deleteNote } from "../../redux/notes/notesAction";
 import Navbar from "../Navbar/Navbar";
 import { Link } from "react-router-dom";
-import styles from "./NotesData.module.css";
+import styles from "./NotesData.module.scss";
 
 const NotesData = () => {
   const [page, setPage] = useState(1);

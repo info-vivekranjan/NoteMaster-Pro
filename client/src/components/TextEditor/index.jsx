@@ -149,7 +149,6 @@ const TextEditor = () => {
   }
 
   useEffect(() => {}, []);
-  console.log(editorState);
   return (
     <>
       <Navbar />
