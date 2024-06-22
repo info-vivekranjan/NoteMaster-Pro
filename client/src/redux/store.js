@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import { authReducer } from "./auth/authReducer";
 import { registerReducer } from "./register/registerReducer";
 import { notesReducer } from "./notes/notesReducer";
+import { textEditorReducer } from './textEditor/textEditorReducer'
 
 const rootReducer = combineReducers({
   auth: authReducer,
   authRegister: registerReducer,
   notesData: notesReducer,
+  textEditorData: textEditorReducer
 });
 
 /**

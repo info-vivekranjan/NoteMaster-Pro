@@ -1,11 +1,54 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
 import Navbar from "../Navbar/Navbar";
-import { Box, Container, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTextEditor } from "../../redux/textEditor/textEditorAction";
+import { useDispatch } from "react-redux";
+
 
 const TextEditor = () => {
+  const dispatch = useDispatch();
   const [editorState, setEditorState] = useState("");
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const names = [
+    "Technical",
+    "Social",
+    "Creative",
+    "Personal Development",
+    "Professional",
+    "Financial",
+    "Travel",
+    "Miscellaneous",
+    "Others",
+  ];
+
+  let theme = createTheme({
+    palette: {
+      primary: {
+        main: "#FCD450",
+      },
+      secondary: {
+        main: "#edf2ff",
+      },
+      black: {
+        main: "#000000",
+      },
+    },
+  });
+
   var modules = {
     toolbar: [
       [{ header: "1" }, { header: "2" }, { font: [] }],
@@ -88,27 +131,109 @@ const TextEditor = () => {
   const handleProcedureContentChange = (content) => {
     setEditorState(content);
   };
+  const handleChangeTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleChangeCategory = (e) => {
+    setCategory(e.target.value);
+  };
+  
+  const handleCreateTextEditor = () =>{
+    const payload = {
+      title,
+      category,
+      content: editorState
+    }
+    dispatch(createTextEditor(payload));
+  }
+
+  useEffect(() => {}, []);
   console.log(editorState);
   return (
     <>
       <Navbar />
-      <Box style={{ paddingTop: "100px" }}>
-        <Container maxWidth="xl">
-          <Box sx={{ mb: "50px" }}>
-            <Typography variant="h4">Text Editor</Typography>
-          </Box>
-          <Box>
-            <ReactQuill
-              theme="snow"
-              modules={modules}
-              formats={formats}
-              placeholder="write your content ...."
-              onChange={handleProcedureContentChange}
-              style={{ width: "80%", height: "280px" }}
-            ></ReactQuill>
-          </Box>
-        </Container>
-      </Box>
+      <ThemeProvider theme={theme}>
+        <Box style={{ paddingTop: "100px" }}>
+          <Container maxWidth="xxl">
+            <Box sx={{ mb: "20px" }}>
+              <Typography variant="h4">Text Editor</Typography>
+            </Box>
+            <Box sx={{ display: "flex" }}>
+              <Box sx={{ width: "100%", marginRight: "20px" }}>
+                <Box style={{ display:"flex", justifyContent:"space-between", marginBottom:"8px" }}>
+                  <TextField
+                    id="title-basic"
+                    label="Title"
+                    variant="outlined"
+                    type="text"
+                    name="title"
+                    value={title}
+                    onChange={handleChangeTitle}
+                    style={{ width: "49%" }}
+                  />
+                  <FormControl style={{ width: "49%" }}>
+                    <InputLabel id="category-simple-select-label">
+                      Category
+                    </InputLabel>
+                    <Select
+                      labelId="category-simple-select-label"
+                      id="category-simple-select"
+                      value={category}
+                      label="Category"
+                      onChange={handleChangeCategory}
+                    >
+                      {names.map((name) => (
+                        <MenuItem key={name} value={name}>
+                          {name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Box>
+                <ReactQuill
+                  theme="snow"
+                  modules={modules}
+                  formats={formats}
+                  placeholder="write your content ...."
+                  onChange={handleProcedureContentChange}
+                  style={{ width: "100%", height: "65vh" }}
+                ></ReactQuill>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    mt: "50px",
+                  }}
+                >
+                  <Button variant="contained" sx={{ mr: "20px" }} onClick={handleCreateTextEditor}>
+                    Save Changes
+                  </Button>
+                  <Button variant="contained" color="black">
+                    <Box component="span" color="white">
+                      Cancel
+                    </Box>
+                  </Button>
+                </Box>
+              </Box>
+              <Box sx={{ width: "100%" }}>
+                <TextField
+                  id="htmltext-basic"
+                  label="Html text"
+                  variant="outlined"
+                  type="text"
+                  name="htmltext"
+                  value={editorState}
+                  multiline
+                  disabled
+                  rows={29.5}
+                  style={{ width: "100%" }}
+                />
+              </Box>
+            </Box>
+          </Container>
+        </Box>
+      </ThemeProvider>
     </>
   );
 };
