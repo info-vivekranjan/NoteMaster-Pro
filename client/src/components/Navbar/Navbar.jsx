@@ -87,9 +87,9 @@ export default function PrimarySearchAppBar() {
                 </Link>
               </Box>
               <Box>
-                <Link to="/text-editor" style={{ textDecoration: "none" }}>
+                <Link to="/paragraphix" style={{ textDecoration: "none" }}>
                   <Typography variant="subtitle1" className={styles.mr2}>
-                    Text editor
+                    ParaGraphix
                   </Typography>
                 </Link>
               </Box>

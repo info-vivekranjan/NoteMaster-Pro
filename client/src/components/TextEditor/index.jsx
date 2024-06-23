@@ -16,10 +16,12 @@ import {
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { createTextEditor } from "../../redux/textEditor/textEditorAction";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 const TextEditor = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [editorState, setEditorState] = useState("");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
@@ -146,6 +148,11 @@ const TextEditor = () => {
       content: editorState
     }
     dispatch(createTextEditor(payload));
+    navigate('/paragraphix')
+  }
+
+  const handleCancel = () =>{
+    navigate('/paragraphix')
   }
 
   useEffect(() => {}, []);
@@ -156,7 +163,7 @@ const TextEditor = () => {
         <Box style={{ paddingTop: "100px" }}>
           <Container maxWidth="xxl">
             <Box sx={{ mb: "20px" }}>
-              <Typography variant="h4">Text Editor</Typography>
+              <Typography variant="h4">Create ParaGraphix</Typography>
             </Box>
             <Box sx={{ display: "flex" }}>
               <Box sx={{ width: "100%", marginRight: "20px" }}>
@@ -208,7 +215,7 @@ const TextEditor = () => {
                   <Button variant="contained" sx={{ mr: "20px" }} onClick={handleCreateTextEditor}>
                     Save Changes
                   </Button>
-                  <Button variant="contained" color="black">
+                  <Button variant="contained" color="black" onClick={handleCancel}>
                     <Box component="span" color="white">
                       Cancel
                     </Box>
@@ -218,7 +225,7 @@ const TextEditor = () => {
               <Box sx={{ width: "100%" }}>
                 <TextField
                   id="htmltext-basic"
-                  label="Html text"
+                  label="Preview Html"
                   variant="outlined"
                   type="text"
                   name="htmltext"
@@ -226,7 +233,7 @@ const TextEditor = () => {
                   multiline
                   disabled
                   rows={29.5}
-                  style={{ width: "100%" }}
+                  style={{ width: "100%", backgroundColor:"#f2f2f2", color:"#000000" }}
                 />
               </Box>
             </Box>

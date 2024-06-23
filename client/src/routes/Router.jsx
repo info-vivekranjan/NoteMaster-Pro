@@ -7,6 +7,7 @@ import CreateNote from "../components/CreateNote/CreateNote";
 import EditNote from "../components/EditNote/EditNote";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "../components/Profile/Profile";
+import ShowTextEditor from '../components/ShowTextEditor'
 import TextEditor from '../components/TextEditor'
 
 const Router = () => {
@@ -25,7 +26,15 @@ const Router = () => {
           }
         />
         <Route
-          path="/text-editor"
+          path="/paragraphix"
+          element={
+            <PrivateRoute>
+              <ShowTextEditor />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/create-paragraphix"
           element={
             <PrivateRoute>
               <TextEditor />
