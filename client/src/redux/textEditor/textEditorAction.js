@@ -7,6 +7,7 @@ import {
   GET_TEXT_EDITOR_REQUEST,
   GET_TEXT_EDITOR_SUCCESS,
   GET_TEXT_EDITOR_FAILURE,
+  DELETE_TEXT_EDITOR_SUCCESS
 } from "./textEditorActionTypes";
 
 export const createTextEditorRequest = () => ({
@@ -36,6 +37,12 @@ export const getTextEditorFailure = (payload) => ({
   type: GET_TEXT_EDITOR_FAILURE,
   payload,
 });
+
+export const deleteTextEditorSuccess = (payload) => ({
+  type: DELETE_TEXT_EDITOR_SUCCESS,
+  payload,
+});
+
 
 export const getAllTextEditor = (page, limit) => (dispatch) => {
   dispatch(getTextEditorRequest());
@@ -74,5 +81,20 @@ export const createTextEditor = (payload) => (dispatch) => {
     })
     .catch((err) => {
       dispatch(createTextEditorFailure(err));
+    });
+};
+
+export const deleteTextEditor = (id) => (dispatch) => {
+  const config = {
+    headers: {
+      "Content-type": "application/json",
+      "x-access-token": getLocalData("userInfo")?.token,
+    },
+  };
+
+  return axios
+    .delete(`/textEditor/deleteTextData/${id}`, config)
+    .then((response) => {
+      dispatch(deleteTextEditorSuccess(response));
     });
 };

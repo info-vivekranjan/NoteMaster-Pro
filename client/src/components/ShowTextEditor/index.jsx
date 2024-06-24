@@ -19,7 +19,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import DownloadIcon from "@mui/icons-material/Download";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTextEditor } from "../../redux/textEditor/textEditorAction";
+import { getAllTextEditor, deleteTextEditor } from "../../redux/textEditor/textEditorAction";
 import Navbar from "../Navbar/Navbar";
 import { Link } from "react-router-dom";
 import styles from "./ShowTextEditor.module.scss";
@@ -39,6 +39,11 @@ const ShowTextEditor = () => {
       },
     },
   });
+
+  const handleDeleteTextEditor = (id) => {
+    dispatch(deleteTextEditor(id));
+    window.location.reload();
+  };
 
   useEffect(() => {
     dispatch(getAllTextEditor(page, limit));
@@ -154,6 +159,7 @@ const ShowTextEditor = () => {
                           variant="contained"
                           size="small"
                           endIcon={<DeleteIcon />}
+                          onClick={() => handleDeleteTextEditor(item?._id)}
                         >
                           Delete
                         </Button>
