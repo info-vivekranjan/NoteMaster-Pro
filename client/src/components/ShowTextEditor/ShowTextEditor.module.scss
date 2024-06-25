@@ -1,5 +1,19 @@
-.paginationCont{
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 50px;
+.paginationCont {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 50px;
+}
+
+.viewMoreLessCont {
+  display: flex;
+  justify-content: flex-end;
+  .viewMoreLess {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #36c;
+    width: 95px;
+    &:hover{
+        text-decoration: none;
+    }
+  }
 }
