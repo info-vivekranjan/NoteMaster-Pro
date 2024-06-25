@@ -16,7 +16,7 @@ import { authLogin } from "../../redux/auth/authAction";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
-import styles from "./Login.module.css";
+import styles from "./Login.module.scss";
 import { getLocalData } from "../../utils/localStorage";
 
 const Login = () => {
