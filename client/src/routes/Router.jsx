@@ -7,8 +7,9 @@ import CreateNote from "../components/CreateNote/CreateNote";
 import EditNote from "../components/EditNote/EditNote";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "../components/Profile/Profile";
-import ShowTextEditor from '../components/ShowTextEditor'
-import TextEditor from '../components/TextEditor'
+import ShowTextEditor from "../components/ShowTextEditor";
+import TextEditor from "../components/TextEditor";
+import EditTextEditor from "../components/EditTextEditor";
 
 const Router = () => {
   return (
@@ -38,6 +39,14 @@ const Router = () => {
           element={
             <PrivateRoute>
               <TextEditor />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/edit-paragraphix/:id"
+          element={
+            <PrivateRoute>
+              <EditTextEditor />
             </PrivateRoute>
           }
         />

@@ -5,6 +5,9 @@ import {
   GET_TEXT_EDITOR_REQUEST,
   GET_TEXT_EDITOR_SUCCESS,
   GET_TEXT_EDITOR_FAILURE,
+  EDIT_TEXT_EDITOR_REQUEST,
+  EDIT_TEXT_EDITOR_SUCCESS,
+  EDIT_TEXT_EDITOR_FAILURE,
 } from "./textEditorActionTypes";
 
 let initialState = {
@@ -17,6 +20,11 @@ let initialState = {
   allTextEditorSuccess: false,
   allTextEditorFailure: false,
   textEditorData: [],
+  editAllTextEditorRequest: false,
+  editAllTextEditorSuccess: false,
+  editAllTextEditorFailure: false,
+  editedTextEditorData: [],
+  editedFailureData: "",
 };
 
 export const textEditorReducer = (state = initialState, { type, payload }) => {
@@ -58,6 +66,25 @@ export const textEditorReducer = (state = initialState, { type, payload }) => {
         allTextEditorRequest: false,
         allTextEditorFailure: true,
         failureData: payload,
+      };
+    case EDIT_TEXT_EDITOR_REQUEST:
+      return {
+        ...state,
+        editAllTextEditorRequest: true,
+      };
+    case EDIT_TEXT_EDITOR_SUCCESS:
+      return {
+        ...state,
+        editAllTextEditorRequest: false,
+        editAllTextEditorSuccess: true,
+        editedTextEditorData: payload,
+      };
+    case EDIT_TEXT_EDITOR_FAILURE:
+      return {
+        ...state,
+        editAllTextEditorRequest: false,
+        editAllTextEditorFailure: true,
+        editedFailureData: payload,
       };
     default:
       return state;

@@ -18,6 +18,7 @@ import ReactToPrint from "react-to-print";
 import DownloadIcon from "@mui/icons-material/Download";
 import InfoIcon from "@mui/icons-material/Info";
 import styles from "./ShowTextEditor.module.scss";
+import { Link } from "react-router-dom";
 
 const ShowSingleTextEditor = (props) => {
   const { item, handleDeleteTextEditor } = props;
@@ -92,13 +93,20 @@ const ShowSingleTextEditor = (props) => {
           </Box>
           <ReactToPrint
             trigger={() => (
-              <Button disabled={!isExpanded} variant="contained" endIcon={<DownloadIcon />}>
+              <Button
+                disabled={!isExpanded}
+                variant="contained"
+                endIcon={<DownloadIcon />}
+              >
                 Download Pdf
               </Button>
             )}
             content={() => inputRef.current}
           />
-          <Tooltip title="Info: Click on View More then Download the Pdf." placement="top-start">
+          <Tooltip
+            title="Info: Click on View More then Download the Pdf."
+            placement="top-start"
+          >
             <IconButton>
               <InfoIcon />
             </IconButton>
@@ -113,14 +121,19 @@ const ShowSingleTextEditor = (props) => {
             pt: "10px",
           }}
         >
-          <Button
-            variant="contained"
-            size="small"
-            endIcon={<EditIcon />}
-            sx={{ mr: "15px" }}
+          <Link
+            to={`/edit-paragraphix/${item._id}`}
+            style={{ textDecoration: "none" }}
           >
-            Edit
-          </Button>
+            <Button
+              variant="contained"
+              size="small"
+              endIcon={<EditIcon />}
+              sx={{ mr: "15px" }}
+            >
+              Edit
+            </Button>
+          </Link>
           <Button
             variant="contained"
             size="small"

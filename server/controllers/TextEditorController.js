@@ -23,11 +23,10 @@ exports.createText = async (req, res) => {
 };
 
 exports.getAllTextData = async (req, res) => {
-  const {page=1, limit=4} = req.query;
+  const { page = 1, limit = 4 } = req.query;
 
   try {
-    let allTextData = await textEditor
-    .find({ user: req.user._id });
+    let allTextData = await textEditor.find({ user: req.user._id });
 
     let textData = await textEditor
       .find({ user: req.user._id })
@@ -59,46 +58,78 @@ exports.getAllTextData = async (req, res) => {
   }
 };
 
-
 exports.getSingleTextData = async (req, res) => {
-    try {
-      let textData = await textEditor.findById(req.params.id);
-      if (textData && textData.length === 0) {
-        return res.status(200).json({
-          code: 2000,
-          message: "No data available",
-          data: textData,
-        });
-      } else {
-        return res.status(200).json({
-          code: 2001,
-          message: "Text data fetched successfully",
-          data: textData,
-          count: textData.length,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({
-        code: 2010,
-        message: "something went wrong",
+  try {
+    let textData = await textEditor.findById(req.params.id);
+    if (textData && textData.length === 0) {
+      return res.status(200).json({
+        code: 2000,
+        message: "No data available",
+        data: textData,
       });
-    }
-  };
-  
-  exports.deleteTextData = async (req, res) => {
-    try {
-      const deletedTextData = await textEditor.findByIdAndDelete(req.params.id);
-      return res.status(204).json({
+    } else {
+      return res.status(200).json({
         code: 2001,
-        message: "Text data deleted successfully",
-        data: deletedTextData,
-      });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({
-        code: 2010,
-        message: "Something went wrong",
+        message: "Text data fetched successfully",
+        data: textData,
+        count: textData.length,
       });
     }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      code: 2010,
+      message: "something went wrong",
+    });
+  }
+};
+
+exports.deleteTextData = async (req, res) => {
+  try {
+    const deletedTextData = await textEditor.findByIdAndDelete(req.params.id);
+    return res.status(204).json({
+      code: 2001,
+      message: "Text data deleted successfully",
+      data: deletedTextData,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      code: 2010,
+      message: "Something went wrong",
+    });
+  }
+};
+
+exports.updateTextData = async (req, res) => {
+  const { title, category, content } = req.body;
+  const body = {
+    title,
+    content,
+    category,
   };
+  try {
+    const updatedTextData = await textEditor.findByIdAndUpdate(req.params.id, body, {
+      new: true,
+    });
+    if (updatedTextData && updatedTextData.length === 0) {
+      return res.status(200).json({
+        code: 2000,
+        message: "No Data Found",
+        data: updatedTextData,
+      });
+    } else {
+      return res.status(200).json({
+        code: 2001,
+        message: "Text data updated successfully",
+        data: updatedTextData,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      code: 2010,
+      message: "Something went wrong",
+    });
+  }
+};
