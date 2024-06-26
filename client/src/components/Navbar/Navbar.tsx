@@ -86,10 +86,17 @@ export default function PrimarySearchAppBar() {
                   </Typography>
                 </Link>
               </Box>
-              <Box>
+              <Box sx={{ mr: "20px" }}>
                 <Link to="/paragraphix" style={{ textDecoration: "none" }}>
                   <Typography variant="subtitle1" className={styles.mr2}>
                     ParaGraphix
+                  </Typography>
+                </Link>
+              </Box>
+              <Box>
+                <Link to="/markdown-editor" style={{ textDecoration: "none" }}>
+                  <Typography variant="subtitle1" className={styles.mr2}>
+                    Markdown Editor
                   </Typography>
                 </Link>
               </Box>

@@ -1,15 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from "../components/Dashboard/Dashboard";
-import Login from "../components/auth/Login";
-import Register from "../components/register/Register";
-import NotesData from "../components/NotesData/NotesData";
-import CreateNote from "../components/CreateNote/CreateNote";
-import EditNote from "../components/EditNote/EditNote";
-import PrivateRoute from "./PrivateRoute";
-import Profile from "../components/Profile/Profile";
-import ShowTextEditor from "../components/ShowTextEditor";
-import TextEditor from "../components/TextEditor";
-import EditTextEditor from "../components/EditTextEditor";
+import Dashboard from "../components/Dashboard/Dashboard.tsx";
+import Login from "../components/auth/Login.tsx";
+import Register from "../components/register/Register.tsx";
+import NotesData from "../components/NotesData/NotesData.tsx";
+import CreateNote from "../components/CreateNote/CreateNote.tsx";
+import EditNote from "../components/EditNote/EditNote.tsx";
+import PrivateRoute from "./PrivateRoute.tsx";
+import Profile from "../components/Profile/Profile.tsx";
+import ShowTextEditor from "../components/ShowTextEditor/index.tsx";
+import TextEditor from "../components/TextEditor/index.tsx";
+import EditTextEditor from "../components/EditTextEditor/index.tsx";
+import MarkdownEditor from "../components/MarkdownEditor";
 
 const Router = () => {
   return (
@@ -47,6 +48,14 @@ const Router = () => {
           element={
             <PrivateRoute>
               <EditTextEditor />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/markdown-editor"
+          element={
+            <PrivateRoute>
+              <MarkdownEditor />
             </PrivateRoute>
           }
         />
