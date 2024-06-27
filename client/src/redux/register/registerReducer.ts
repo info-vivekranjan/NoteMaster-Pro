@@ -12,7 +12,7 @@ const initialState = {
   registerFailureData: "",
 };
 
-export const registerReducer = (state = initialState, { type, payload }) => {
+export const registerReducer = (state = initialState, { type, payload } : { type: any, payload: any }) => {
   switch (type) {
     case REGISTER_LOADING:
       return {

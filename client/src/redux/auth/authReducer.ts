@@ -8,7 +8,7 @@ const initialState = {
   failureData: "",
 };
 
-export const authReducer = (state = initialState, { type, payload }) => {
+export const authReducer = (state = initialState, { type, payload }: { type: any, payload: any }) => {
   switch (type) {
     case AUTH_LOADING:
       return {

@@ -3,23 +3,23 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
 } from "./registerActionTypes";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 export const registerLoading = () => ({
   type: REGISTER_LOADING,
 });
 
-export const registerSuccess = (payload) => ({
+export const registerSuccess = (payload: AxiosResponse<any, any>) => ({
   type: REGISTER_SUCCESS,
   payload,
 });
 
-export const registerFailure = (payload) => ({
+export const registerFailure = (payload: any) => ({
   type: REGISTER_FAILURE,
   payload,
 });
 
-export const authRegister = (payload) => (dispatch) => {
+export const authRegister = (payload: FormData) => (dispatch: (arg0: { type: string; payload?: any; }) => void) => {
   dispatch(registerLoading());
   const config = {
     headers: {

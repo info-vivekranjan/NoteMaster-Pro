@@ -30,7 +30,7 @@ let initialState = {
   editedFailureData: "",
 };
 
-export const notesReducer = (state = initialState, { type, payload }) => {
+export const notesReducer = (state = initialState, { type, payload } : { type: any, payload:any }) => {
   switch (type) {
     case GET_NOTES_REQUEST:
       return {

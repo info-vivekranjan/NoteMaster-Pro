@@ -27,7 +27,7 @@ let initialState = {
   editedFailureData: "",
 };
 
-export const textEditorReducer = (state = initialState, { type, payload }) => {
+export const textEditorReducer = (state = initialState, { type, payload }: { type: any, payload: any }) => {
   switch (type) {
     case CREATE_TEXT_EDITOR_REQUEST:
       return {

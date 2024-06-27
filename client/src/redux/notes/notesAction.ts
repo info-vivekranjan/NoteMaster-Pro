@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { getLocalData } from "../../utils/localStorage";
 import {
   GET_NOTES_REQUEST,
@@ -17,17 +17,17 @@ export const getNotesRequest = () => ({
   type: GET_NOTES_REQUEST,
 });
 
-export const getNotesSuccess = (payload) => ({
+export const getNotesSuccess = (payload: AxiosResponse<any, any>) => ({
   type: GET_NOTES_SUCCESS,
   payload,
 });
 
-export const getNotesFailure = (payload) => ({
+export const getNotesFailure = (payload: any) => ({
   type: GET_NOTES_FAILURE,
   payload,
 });
 
-export const deleteNotesSuccess = (payload) => ({
+export const deleteNotesSuccess = (payload: AxiosResponse<any, any>) => ({
   type: DELETE_NOTES_SUCCESS,
   payload,
 });
@@ -36,12 +36,12 @@ export const createNotesRequest = () => ({
   type: CREATE_NOTES_REQUEST,
 });
 
-export const createNotesSuccess = (payload) => ({
+export const createNotesSuccess = (payload: AxiosResponse<any, any>) => ({
   type: CREATE_NOTES_SUCCESS,
   payload,
 });
 
-export const createNotesFailure = (payload) => ({
+export const createNotesFailure = (payload: any) => ({
   type: CREATE_NOTES_FAILURE,
   payload,
 });
@@ -50,17 +50,17 @@ export const editNoteRequest = () => ({
   type: EDIT_NOTE_REQUEST,
 });
 
-export const editNoteSuccess = (payload) => ({
+export const editNoteSuccess = (payload: AxiosResponse<any, any>) => ({
   type: EDIT_NOTE_SUCCESS,
   payload,
 });
 
-export const editNoteFailure = (payload) => ({
+export const editNoteFailure = (payload: any) => ({
   type: EDIT_NOTE_FAILURE,
   payload,
 });
 
-export const getAllNotes = (page, limit) => (dispatch) => {
+export const getAllNotes = (page: number, limit: number) => (dispatch: (arg0: { type: string; payload?: any; }) => void) => {
   dispatch(getNotesRequest());
 
   const config = {
@@ -72,15 +72,15 @@ export const getAllNotes = (page, limit) => (dispatch) => {
 
   return axios
     .get(`/note/getAllNotes?page=${page}&limit=${limit}`, config)
-    .then((response) => {
+    .then((response: any) => {
       dispatch(getNotesSuccess(response));
     })
-    .catch((err) => {
+    .catch((err: any) => {
       dispatch(getNotesFailure(err));
     });
 };
 
-export const deleteNote = (id) => (dispatch) => {
+export const deleteNote = (id: any) => (dispatch: (arg0: { type: string; payload: any; }) => void) => {
   const config = {
     headers: {
       "Content-type": "application/json",
@@ -90,12 +90,12 @@ export const deleteNote = (id) => (dispatch) => {
 
   return axios
     .delete(`/note/deleteNote/${id}`, config)
-    .then((response) => {
+    .then((response: any) => {
       dispatch(deleteNotesSuccess(response));
     });
 };
 
-export const createNote = (payload) => (dispatch) => {
+export const createNote = (payload: FormData) => (dispatch: (arg0: { type: string; payload?: any; }) => void) => {
   dispatch(createNotesRequest());
 
   const config = {
@@ -107,15 +107,15 @@ export const createNote = (payload) => (dispatch) => {
 
   return axios
     .post(`/note/createNote`, payload, config)
-    .then((response) => {
+    .then((response: any) => {
       dispatch(createNotesSuccess(response));
     })
-    .catch((err) => {
+    .catch((err: any) => {
       dispatch(createNotesFailure(err));
     });
 };
 
-export const editNote = (id, payload) => (dispatch) => {
+export const editNote = (id: string | undefined, payload: FormData) => (dispatch: (arg0: { type: string; payload?: any; }) => void) => {
   dispatch(editNoteRequest());
 
   const config = {
@@ -127,10 +127,10 @@ export const editNote = (id, payload) => (dispatch) => {
 
   return axios
     .put(`/note/updateNote/${id}`, payload, config)
-    .then((response) => {
+    .then((response: any) => {
       dispatch(editNoteSuccess(response));
     })
-    .catch((err) => {
+    .catch((err: any) => {
       dispatch(editNoteFailure(err));
     });
 };
