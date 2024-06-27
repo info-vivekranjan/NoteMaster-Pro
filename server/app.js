@@ -3,10 +3,10 @@ const app = express();
 const cors = require("cors");
 const env = require("dotenv");
 env.config();
-const connect = require("./server/config/db");
-const userRoute = require("./server/routes/userRoute");
-const noteRoute = require("./server/routes/NoteRoute");
-const textEditorRoute = require("./server/routes/TextEditorRoute");
+const connect = require("./config/db");
+const userRoute = require("./routes/userRoute");
+const noteRoute = require("./routes/NoteRoute");
+const textEditorRoute = require("./routes/TextEditorRoute");
 
 const PORT = process.env.PORT || 6800
 const bodyParser = require('body-parser');
