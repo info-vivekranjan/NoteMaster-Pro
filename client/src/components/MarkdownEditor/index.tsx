@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Navbar from "../Navbar/Navbar";
-// import styles from "./MarkdownEditor.module.scss";
+import "./MarkdownEditor.scss";
 import MarkdownCodeEditor from "@uiw/react-markdown-editor";
 import { code } from "./DemoMarkdownCode";
 

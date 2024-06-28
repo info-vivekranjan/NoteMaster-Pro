@@ -1,0 +1,11 @@
+.md-editor {
+  color: var(--color-fg-default);
+  border: 1px solid silver;
+  box-shadow: var(--color-border-shadow);
+  text-align: left;
+  border-radius: 3px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-canvas-subtle);
+}

@@ -39,7 +39,7 @@ export const textEditorReducer = (state = initialState, { type, payload }: { typ
         ...state,
         createAllTextEditorRequest: false,
         createAllTextEditorSuccess: true,
-        createdNoteData: payload,
+        createdTextEditorData: payload,
       };
     case CREATE_TEXT_EDITOR_FAILURE:
       return {

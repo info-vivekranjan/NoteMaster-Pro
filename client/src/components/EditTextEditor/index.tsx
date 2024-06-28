@@ -189,7 +189,7 @@ const EditTextEditor = () => {
         <Box style={{ paddingTop: "100px" }}>
           <Container maxWidth="xxl">
             <Box sx={{ mb: "20px" }}>
-              <Typography variant="h4">Create ParaGraphix</Typography>
+              <Typography variant="h4">Edit ParaGraphix</Typography>
             </Box>
             <Box sx={{ display: "flex" }}>
               <Box sx={{ width: "100%", marginRight: "20px" }}>
