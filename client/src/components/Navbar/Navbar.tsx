@@ -94,7 +94,7 @@ export default function PrimarySearchAppBar() {
                 </Link>
               </Box>
               <Box>
-                <Link to="/markdown-editor" style={{ textDecoration: "none" }}>
+                <Link to="/get-markdown-file" style={{ textDecoration: "none" }}>
                   <Typography variant="subtitle1" className={styles.mr2}>
                     Markdown Editor
                   </Typography>

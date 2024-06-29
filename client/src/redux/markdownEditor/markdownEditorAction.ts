@@ -71,7 +71,7 @@ export const getAllMarkdownEditor = (page: number, limit: number) => (dispatch: 
   };
 
   return axios
-    .get(`/textEditor/getAllTextData?page=${page}&limit=${limit}`, config)
+    .get(`/markdownEditor/getAllMarkdownData?page=${page}&limit=${limit}`, config)
     .then((response: any) => {
       dispatch(getMarkdownEditorSuccess(response));
     })
@@ -91,7 +91,7 @@ export const createMarkdownEditor = (payload: { title: string; category: string;
   };
 
   return axios
-    .post(`/textEditor/createTextData`, payload, config)
+    .post(`/markdownEditor/createMarkdownData`, payload, config)
     .then((response: any) => {
       dispatch(createMarkdownEditorSuccess(response));
     })
@@ -109,7 +109,7 @@ export const deleteMarkdownEditor = (id: any) => (dispatch: (arg0: { type: strin
   };
 
   return axios
-    .delete(`/textEditor/deleteTextData/${id}`, config)
+    .delete(`/markdownEditor/deleteMarkdownData/${id}`, config)
     .then((response: any) => {
       dispatch(deleteMarkdownEditorSuccess(response));
     });
@@ -126,7 +126,7 @@ export const editMarkdownEditor = (id: string | undefined, payload: { title: str
   };
 
   return axios
-    .put(`/textEditor/updateTextData/${id}`, payload, config)
+    .put(`/markdownEditor/updateMarkdownData/${id}`, payload, config)
     .then((response: any) => {
       dispatch(editMarkdownEditorSuccess(response));
     })

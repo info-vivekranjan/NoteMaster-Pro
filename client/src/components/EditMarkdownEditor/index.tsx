@@ -8,22 +8,23 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Navbar from "../Navbar/Navbar";
-import "./MarkdownEditor.scss";
+import "./EditMarkdownEditor.scss";
 import MarkdownCodeEditor from "@uiw/react-markdown-editor";
-import { code } from "./DemoMarkdownCode";
-import { createMarkdownEditor } from "../../redux/markdownEditor/markdownEditorAction";
+import { editMarkdownEditor } from "../../redux/markdownEditor/markdownEditorAction";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getLocalData } from "../../utils/localStorage";
+import axios from "axios";
 
-
-const MarkdownEditor = () => {
+const EditMarkdownEditor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [markdownVal, setMarkdownVal] = useState(code);
+  const { id } = useParams();
+  const [markdownVal, setMarkdownVal] = useState("");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const names = [
@@ -65,19 +66,42 @@ const MarkdownEditor = () => {
     },
   });
 
-  const handleCreateMarkdownEditor = () =>{
+  const handleEditMarkdownEditor = () => {
     const payload = {
       title,
       category,
-      content: markdownVal
-    }
-    dispatch(createMarkdownEditor(payload));
-    navigate('/get-markdown-file')
-  }
+      content: markdownVal,
+    };
+    dispatch(editMarkdownEditor(id, payload));
+    navigate("/get-markdown-file");
+  };
 
-  const handleCancel = () =>{
-    navigate('/get-markdown-file')
-  }
+  const handleCancel = () => {
+    navigate("/get-markdown-file");
+  };
+
+  useEffect(() => {
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        "x-access-token": getLocalData("userInfo")?.token,
+      },
+    };
+
+    const fetchSingleData = () => {
+      return axios
+        .get(`/markdownEditor/getSingleMarkdownData/${id}`, config)
+        .then((res) => {
+          setTitle(res?.data?.data?.title);
+          setMarkdownVal(res?.data?.data?.content);
+          setCategory(res?.data?.data?.category);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    fetchSingleData();
+  }, [id]);
 
   return (
     <React.Fragment>
@@ -139,10 +163,18 @@ const MarkdownEditor = () => {
                   mt: "15px",
                 }}
               >
-                <Button variant="contained" sx={{ mr: "20px" }} onClick={handleCreateMarkdownEditor}>
+                <Button
+                  variant="contained"
+                  sx={{ mr: "20px" }}
+                  onClick={handleEditMarkdownEditor}
+                >
                   Save Changes
                 </Button>
-                <Button variant="contained" color="black" onClick={handleCancel}>
+                <Button
+                  variant="contained"
+                  color="black"
+                  onClick={handleCancel}
+                >
                   <Box component="span" color="white">
                     Cancel
                   </Box>
@@ -156,4 +188,4 @@ const MarkdownEditor = () => {
   );
 };
 
-export default MarkdownEditor;
+export default EditMarkdownEditor;

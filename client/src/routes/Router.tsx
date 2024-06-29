@@ -11,6 +11,8 @@ import ShowTextEditor from "../components/ShowTextEditor/index.tsx";
 import TextEditor from "../components/TextEditor/index.tsx";
 import EditTextEditor from "../components/EditTextEditor/index.tsx";
 import MarkdownEditor from "../components/MarkdownEditor";
+import MarkdownFile from "../components/ShowMarkdownFile";
+import EditMarkdownEditor from "../components/EditMarkdownEditor/index.tsx";
 
 const Router = () => {
   return (
@@ -56,6 +58,22 @@ const Router = () => {
           element={
             <PrivateRoute>
               <MarkdownEditor />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/get-markdown-file"
+          element={
+            <PrivateRoute>
+              <MarkdownFile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/edit-markdown-editor/:id"
+          element={
+            <PrivateRoute>
+              <EditMarkdownEditor />
             </PrivateRoute>
           }
         />
