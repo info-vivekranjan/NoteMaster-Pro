@@ -12,6 +12,7 @@ import para from "../../images/para.png";
 import textEditor from "../../images/textEditor.png";
 import markdown from "../../images/markdown.png";
 import markdownEditor from "../../images/markdownEditor.png";
+import Footer from "./Footer";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -61,8 +62,8 @@ const Dashboard = () => {
               <Box>Note Maker</Box>
               <Box>Text Editor</Box>
               <Box>Markdown Editor</Box>
-              <Box>About</Box>
               <Box>Conntact US</Box>
+              <Box>Login</Box>
             </Box>
           </nav>
           <Box
@@ -109,13 +110,14 @@ const Dashboard = () => {
                 sx={{
                   fontSize: "40px",
                   borderBottom: "5px solid #FCD450",
-                  borderRight: "5px solid #FCD450",
-                  width: "250px",
+                  width: "350px",
+                  boxShadow:"0 0 50px hsl(220deg 60% 50% / 0.2)",
+                  padding:"5px 10px"
                 }}
               >
                 Note Maker
               </Box>
-              <Box sx={{ fontSize: "24px", marginTop: "15px" }}>
+              <Box sx={{ fontSize: "24px", marginTop: "50px", marginBottom:"50px" }}>
                 Easily create and organize your notes with a user-friendly
                 interface. Upload files of all formats, including images, PDFs,
                 and videos, to keep everything you need in one place.
@@ -126,7 +128,8 @@ const Dashboard = () => {
                   alt="notes"
                   style={{
                     width: "70%",
-                    border: "1px solid silver",
+                    // border: "1px solid silver",
+                    boxShadow:"0 0 50px hsl(220deg 60% 50% / 0.2)",
                     borderRadius: "5px",
                   }}
                 />
@@ -143,13 +146,14 @@ const Dashboard = () => {
                 sx={{
                   fontSize: "40px",
                   borderBottom: "5px solid #FCD450",
-                  borderRight: "5px solid #FCD450",
-                  width: "250px",
+                  width: "350px",
+                  boxShadow:"0 0 50px hsl(220deg 60% 50% / 0.2)",
+                  padding:"5px 10px"
                 }}
               >
                 Text Editor
               </Box>
-              <Box sx={{ fontSize: "24px", marginTop: "15px" }}>
+              <Box sx={{ fontSize: "24px", marginTop: "50px", marginBottom:"50px" }}>
                 Enjoy a robust text editor that supports rich text formatting,
                 image insertion, and PDF download capabilities, making document
                 creation and sharing effortless.
@@ -162,9 +166,10 @@ const Dashboard = () => {
                   alt="para"
                   style={{
                     width: "50%",
-                    border: "1px solid silver",
+                    // border: "1px solid silver",
+                    boxShadow:"0 0 25px hsl(220deg 60% 50% / 0.2)",
                     borderRadius: "5px",
-                    marginRight: "10px",
+                    marginRight: "20px",
                   }}
                 />
                 <img
@@ -172,9 +177,10 @@ const Dashboard = () => {
                   alt="textEditor"
                   style={{
                     width: "50%",
-                    border: "1px solid silver",
+                    // border: "1px solid silver",
+                    boxShadow:"0 0 25px hsl(220deg 60% 50% / 0.2)",
                     borderRadius: "5px",
-                    marginLeft: "10px",
+                    marginLeft: "20px",
                   }}
                 />
               </Box>
@@ -190,13 +196,14 @@ const Dashboard = () => {
                 sx={{
                   fontSize: "40px",
                   borderBottom: "5px solid #FCD450",
-                  borderRight: "5px solid #FCD450",
                   width: "350px",
+                  boxShadow:"0 0 50px hsl(220deg 60% 50% / 0.2)",
+                  padding:"5px 10px"
                 }}
               >
                 Markdown Editor
               </Box>
-              <Box sx={{ fontSize: "24px", marginTop: "15px" }}>
+              <Box sx={{ fontSize: "24px", marginTop: "50px", marginBottom:"50px" }}>
                 Leverage the full power of markdown with a live preview feature.
                 Edit, preview, and download your markdown files with ease,
                 ensuring your documents are always in top form.
@@ -209,9 +216,10 @@ const Dashboard = () => {
                   alt="markdown"
                   style={{
                     width: "50%",
-                    border: "1px solid silver",
+                    // border: "1px solid silver",
+                    boxShadow:"0 0 25px hsl(220deg 60% 50% / 0.2)",
                     borderRadius: "5px",
-                    marginRight: "10px",
+                    marginRight: "20px",
                   }}
                 />
                 <img
@@ -219,24 +227,16 @@ const Dashboard = () => {
                   alt="markdownEditor"
                   style={{
                     width: "50%",
-                    border: "1px solid silver",
+                    // border: "1px solid silver",
+                    boxShadow:"0 0 25px hsl(220deg 60% 50% / 0.2)",
                     borderRadius: "5px",
-                    marginLeft: "10px",
+                    marginLeft: "20px",
                   }}
                 />
               </Box>
             </Container>
           </Box>
-          <Box
-            component="footer"
-            style={{
-              width: "100%",
-              minHeight: "100px",
-              position: "absolute",
-              bottom: "0px",
-              backgroundColor: "#FCD450",
-            }}
-          ></Box>
+          <Footer />
         </Box>
       </ThemeProvider>
     </>
